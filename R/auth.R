@@ -1,4 +1,4 @@
-# Implement the OAuth2.0 aurhtorization flow
+# Implement the OAuth2.0 device grant flow
 # https://tools.ietf.org/html/rfc6749#section-1.3.1
 
 # Wrap the OAuth flow in a function
@@ -37,4 +37,6 @@ login <- function() {
     tokenResponse <- content(resp)
   }
   cat('Login successful!\n')
+  # Return the access token
+  tokenResponse$access_token
 }
