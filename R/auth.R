@@ -1,7 +1,11 @@
 # Implement the OAuth2.0 device grant flow
 # https://tools.ietf.org/html/rfc6749#section-1.3.1
+# https://help.salesforce.com/articleView?id=remoteaccess_oauth_device_flow.htm&type=5
+#
+# Returns a CCM access token for use in
+# authorizing subsequent CCM requests
 
-# Wrap the OAuth flow in a function
+
 login <- function() {
   aurhtorizationBody <- list(
     response_type = 'device_code',
