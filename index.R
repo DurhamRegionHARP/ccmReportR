@@ -1,8 +1,9 @@
 # Salesforce ReportR
 library(httr)
 library(jsonlite)
-source('./R/auth.R')
-source ('./R/getCases.R')
+source('./R/login.R')
+source('./R/getCases.R')
+source('./R/checkRiskFactor.R')
 
 access_token <- login()
 cases_list <- data.frame(
