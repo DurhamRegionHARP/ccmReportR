@@ -1,6 +1,7 @@
 # Salesforce ReportR
 library(httr)
 library(jsonlite)
+library(stringr)
 source('./R/login.R')
 source('./R/getCases.R')
 source('./R/checkRiskFactor.R')
@@ -17,9 +18,21 @@ for (row in 1:nrow(cases_list)) {
   # based on the value of 'Epidemiologic_link_Status__c'
   switch (
     cases_list[row, 'Epidemiologic_link_Status__c'],
-    'Household contact' = checkRiskFactor(cases_list[row, 'Id'], 'Household contact with a case', access_token),
-    'Close contact' = checkRiskFactor(cases_list[row, 'Id'], 'Close contact with a case', access_token),
-    'Travel' = checkRiskFactor(cases_list[row, 'Id'], 'Travel outside province in the last 14 days (specify province or country)', access_token)
-    # 'Outbreak related' = checkOutbreakRiskFactor(cases_list[row, 'Id'])
+    'Household contact' = checkRiskFactor(
+      cases_list[row, 'Id'],
+      'Household contact with a case',
+      access_token
+    ),
+    'Close contact' = checkRiskFactor(
+      cases_list[row, 'Id'],
+      'Close contact with a case',
+      access_token
+    ),
+    'Travel' = checkRiskFactor(
+      cases_list[row, 'Id'],
+      'Travel outside province in the last 14 days (specify province or country)',
+      access_token
     )
+    # 'Outbreak related' = checkOutbreakRiskFactor(cases_list[row, 'Id'])
+  )
 }
