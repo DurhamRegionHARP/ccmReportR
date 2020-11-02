@@ -34,6 +34,14 @@ checkRiskFactor <- function(investigation_id, risk_factor, access_token) {
       body = data,
       encode = 'json'
     )
+    warn_for_status(resp, "update risk factor!")
+    success_message <- paste(
+      'Created risk factor:',
+      risk_factor,
+      'for Case ID:',
+      investigation_id
+    )
+    message_for_status(resp, success_message)
   } else {
     # Take no action
     print("All clear!")
