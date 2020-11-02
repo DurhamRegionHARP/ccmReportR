@@ -19,9 +19,9 @@ checkRiskFactor <- function(investigation_id, risk_factor, access_token) {
     url = paste(resource_uri, query_endpoint, query, sep=''),
     add_headers(Authorization = paste('Bearer', access_token))
   )
-
+  warn_for_status(resp)
   data <- fromJSON(content(resp, 'text'))
-  if (data$totalSize == 0) {
+  if (!data$totalSize) {
     # Add the risk factor
     data <- list(
       CCM_Investigation__c = investigation_id,
@@ -35,13 +35,7 @@ checkRiskFactor <- function(investigation_id, risk_factor, access_token) {
       encode = 'json'
     )
     warn_for_status(resp, "update risk factor!")
-    success_message <- paste(
-      'Created risk factor:',
-      risk_factor,
-      'for Case ID:',
-      investigation_id
-    )
-    message_for_status(resp, success_message)
+    message_for_status(resp)
   } else {
     # Take no action
     print("All clear!")
