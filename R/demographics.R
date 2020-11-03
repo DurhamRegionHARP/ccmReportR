@@ -1,7 +1,7 @@
 # Check for incomplete data entry on
 # demographic risk factors
 
-checkDemographics <- function(investigation_id, access_token) {
+checkDemographics <- function(investigation_id) {
   resource_url <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0'
   query_endpoint <- '/query/?q='
   risk_factor_endpoint <- '/sobjects/CCM_Risk_Factor__c/'
@@ -43,7 +43,7 @@ checkDemographics <- function(investigation_id, access_token) {
       #     risk_factor_endpoint,
       #     demographics[row, 'Id']
       #   ),
-      #   add_headers(Authorization = paste('Bearer', access_token)),
+      #   add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken'))),
       #   body = data,
       #   encode = 'json'
       # )

@@ -6,7 +6,7 @@
 #    - to: Query cases up to this date
 #    - columns: character vector of data to query
 
-getCases <- function(healthUnit, options = list(), access_token) {
+getCases <- function(healthUnit, options) {
   # Look up the heath unit Id
   # healthUnitId <- getHealthUnitByName(healthUnit)
 
@@ -70,7 +70,7 @@ getCases <- function(healthUnit, options = list(), access_token) {
   #   # Post the query to Salesforce
   #   resp <- GET(
   #     url = paste(resource_uri, query, sep=''),
-  #     add_headers(Authorization = paste('Bearer', access_token))
+  #     add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
   #   )
   #   # Parse the results
   #   data <- fromJSON(content(resp, 'text'))

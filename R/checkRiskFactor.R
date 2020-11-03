@@ -1,5 +1,5 @@
 # Find risk factors associatted with an investigation ID
-checkRiskFactor <- function(investigation_id, risk_factor, access_token) {
+checkRiskFactor <- function(investigation_id, risk_factor) {
   # Query CCM for "risk_factor" with "investigation_id"
   # If no return, risk factor is missing, we can add it
   # If risk factor is return, taken no action
@@ -17,7 +17,7 @@ checkRiskFactor <- function(investigation_id, risk_factor, access_token) {
   )
   resp <- GET(
     url = paste(resource_uri, query_endpoint, query, sep=''),
-    add_headers(Authorization = paste('Bearer', access_token))
+    add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
   )
   warn_for_status(resp)
   data <- fromJSON(content(resp, 'text'))
