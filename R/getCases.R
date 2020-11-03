@@ -5,17 +5,16 @@
 #    - from: Query cases beginning on this date
 #    - to: Query cases up to this date
 #    - columns: character vector of data to query
+#    - healthUnit: Limit the query using `Permanent PHU`
 
-getCases <- function(healthUnit, options) {
-  # Look up the heath unit Id
-  # healthUnitId <- getHealthUnitByName(healthUnit)
-
+getCases <- function(options) {
   # Fall back to defaults when no options are passed in
   if(!length(options)) {
     options$confirmedOnly <- FALSE
     options$from <- 'YESTERDAY'
     options$to <- NULL
     options$columns <- 'Id'
+    options$healthUnit <- NULL
   }
 
   # Translate each option to language Salesforce expects
@@ -37,6 +36,14 @@ getCases <- function(healthUnit, options) {
       sep='')
   } else {
     statements$dateRange <- "CCM_ReportedDate__c='YESTERDAY'"
+  }
+  if (!is.null(options$healthUnit)) {
+    statements$phu <- paste(
+      "CCM_New_Diagnosing_PHU__c='",
+      getHealthUnitByName(options$healthUnit),
+      "'",
+      sep=''
+    )
   }
   # Build the WHERE clause for the query
   for (statement in 1:length(statements)) {
