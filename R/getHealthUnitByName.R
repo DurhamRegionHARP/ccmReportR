@@ -1,6 +1,6 @@
 # Look up a Health Unit's Id by name
 
-getHealthUnitIdByName <- function(healthUnitName) {
+getHealthUnitByName <- function(healthUnitName) {
   resp <- GET(
     paste(
       'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q=',
