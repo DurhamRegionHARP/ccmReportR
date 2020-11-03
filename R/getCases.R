@@ -7,7 +7,7 @@
 #    - columns: character vector of data to query
 #    - healthUnit: Limit the query using `Permanent PHU`
 
-getCases <- function(options) {
+getCases <- function(options = list()) {
   # Fall back to defaults when no options are passed in
   if(!length(options)) {
     options$confirmedOnly <- FALSE
@@ -67,24 +67,19 @@ getCases <- function(options) {
     whereClause,
     sep="+")
 
-  print(query)
-  # # Define some constants
-  # resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
-  # # Validate the query
-  # if (is.null(query)) {
-  #   cat('gotCases: Expected a query to execute...Please try again!\n')
-  # } else {
-  #   # Post the query to Salesforce
-  #   resp <- GET(
-  #     url = paste(resource_uri, query, sep=''),
-  #     add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
-  #   )
-  #   # Parse the results
-  #   data <- fromJSON(content(resp, 'text'))
-  #   if ('MALFORMED_QUERY' %in% names(data)) {
-  #     cat('Your query returned an error\n')
-  #   } else {
-  #     data
-  #   }
-  # }
+  # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
+  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
+  # Post the query to Salesforce
+  resp <- GET(
+    url = paste(resource_uri, query, sep=''),
+    add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
+  )
+  warn_for_error(resp, 'get cases!')
+  # Parse the results
+  data <- fromJSON(content(resp, 'text'))
+  if ('MALFORMED_QUERY' %in% names(data)) {
+    cat('The query was rejected due to a syntax error.\n')
+  } else {
+    return(data)
+  }
 }
