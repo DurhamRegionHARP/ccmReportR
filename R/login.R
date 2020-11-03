@@ -43,7 +43,7 @@ login <- function() {
   cat('Login successful!\n')
   # Save the access token in the OS key ring
   key_set_with_value(
-    'Case and Contact Management',
+    'CCM',
     'AccessToken',
     password = tokenResponse$access_token
   )

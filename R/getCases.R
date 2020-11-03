@@ -72,7 +72,7 @@ getCases <- function(options = list()) {
   # Post the query to Salesforce
   resp <- GET(
     url = paste(resource_uri, query, sep=''),
-    add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
+    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
   warn_for_error(resp, 'get cases!')
   # Parse the results

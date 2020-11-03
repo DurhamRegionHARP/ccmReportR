@@ -17,7 +17,7 @@ checkRiskFactor <- function(investigation_id, risk_factor) {
   )
   resp <- GET(
     url = paste(resource_uri, query_endpoint, query, sep=''),
-    add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
+    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
   warn_for_status(resp)
   data <- fromJSON(content(resp, 'text'))

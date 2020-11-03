@@ -43,7 +43,7 @@ checkDemographics <- function(investigation_id) {
       #     risk_factor_endpoint,
       #     demographics[row, 'Id']
       #   ),
-      #   add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken'))),
+      #   add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken'))),
       #   body = data,
       #   encode = 'json'
       # )

@@ -9,7 +9,7 @@ getHealthUnitByName <- function(healthUnitName) {
       "'",
       sep=''
     ),
-    add_headers(Authorization = paste('Bearer', key_get('Case and Conatct Management', 'AccessToken')))
+    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
   stop_for_status(resp, "get a health unit ID")
   healthUnitId <- fromJSON(content(resp, 'text'))
