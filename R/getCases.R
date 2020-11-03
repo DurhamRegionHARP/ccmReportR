@@ -35,7 +35,7 @@ getCases <- function(options = list()) {
       "'",
       sep='')
   } else {
-    statements$dateRange <- "CCM_ReportedDate__c='YESTERDAY'"
+    statements$dateRange <- "CCM_ReportedDate__c=YESTERDAY"
   }
   if (!is.null(options$healthUnit)) {
     statements$phu <- paste(
@@ -61,12 +61,13 @@ getCases <- function(options = list()) {
 
   query <- paste(
     "SELECT",
-    options$columns,
+    paste(options$columns, collapse=","),
     "FROM+Case",
     "WHERE",
     whereClause,
-    sep="+")
-
+    sep="+"
+  )
+  print(query)
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   # Post the query to Salesforce
@@ -74,12 +75,12 @@ getCases <- function(options = list()) {
     url = paste(resource_uri, query, sep=''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
-  warn_for_error(resp, 'get cases!')
+  warn_for_status(resp, paste('get cases!\n', content(resp)$message))
   # Parse the results
   data <- fromJSON(content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     cat('The query was rejected due to a syntax error.\n')
   } else {
-    return(data)
+    return(data$records)
   }
 }
