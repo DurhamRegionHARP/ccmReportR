@@ -41,6 +41,10 @@ login <- function() {
     tokenResponse <- content(resp)
   }
   cat('Login successful!\n')
-  # Return the access token
-  tokenResponse$access_token
+  # Save the access token in the OS key ring
+  key_set_with_value(
+    'Case and Contact Management',
+    'AccessToken',
+    password = tokenResponse$access_token
+  )
 }
