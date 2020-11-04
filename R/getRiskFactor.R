@@ -5,7 +5,7 @@
 getRiskFactors <- function(options = list()) {
   # Fall back to defaults when no options are passed in
   if(!length(options)) {
-    options$riskFactorType <- FALSE
+    options$riskFactorType <- NULL
     options$from <- 'YESTERDAY'
     options$to <- NULL
     options$columns <- 'Id'
