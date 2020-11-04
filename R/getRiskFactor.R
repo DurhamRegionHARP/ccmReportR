@@ -2,19 +2,18 @@
 # The CCM_Risk_Factor__c object maps to Risk Factors
 # on the client side
 #
-# Since investigation ID is a foreign key in the risk
-# factor table:
-#   1. If case list is passed in, return corresponding risk factors
-#   2. If no case list, return all risk factors with investigation id attached
+# 1. Get risk Id and case id over date range
+# 2. for each element, look up case then return TURE or FALSE for health unit
+# 3. Filter list in #1 with results from #2
 
 getRiskFactors <- function(options = list()) {
   # Fall back to defaults when no options are passed in
   if(!length(options)) {
     options$riskFactorType <- NULL
-    options$columns <- c('Id', 'CCM_Investigation__c')
-    options$caseList <- NULL
+    options$healthUnit <- NULL
   }
   # Translate each option to language Salesforce expects
+  # TODO: allow array of record types
   statements <- list()
   if (!is.null(options$riskFactorType)) {
     statements$recordTypeId <- paste(
