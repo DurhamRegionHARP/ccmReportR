@@ -14,33 +14,17 @@ getRiskFactors <- function(options = list()) {
   }
   # Translate each option to language Salesforce expects
   # TODO: allow array of record types
-  statements <- list()
   if (!is.null(options$riskFactorType)) {
-    statements$recordTypeId <- paste(
-      "RecordTypeId='",
+    whereClause <- paste(
+      "WHERE+RecordTypeId='",
       getRecordTypeId(options$riskFactorType),
       "'",
       sep=''
     )
   }
-  # Build the WHERE clause for the query
-  for (statement in 1:length(statements)) {
-    if (statement == 1) {
-      whereClause <- statements[[statement]]
-    } else {
-      whereClause <- paste(
-        whereClause,
-        "+AND+",
-        statements[[statement]],
-        sep=''
-      )
-    }
-  }
   query <- paste(
-    "SELECT",
-    paste(options$columns, collapse=","),
+    "SELECT+Id+CCM_Investigation__c",
     "FROM+CCM_Risk_Factor__c",
-    "WHERE",
     whereClause,
     sep="+"
   )
@@ -50,11 +34,32 @@ getRiskFactors <- function(options = list()) {
     url = paste(resource_uri, query, sep=''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
-  warn_for_status(resp, paste('get risk factors!\n', content(resp)$message))
+  stop_for_status(resp, paste('get risk factors!\n', content(resp)$message))
   data <- fromJSON(content(resp, 'text'))
-  if ('MALFORMED_QUERY' %in% names(data)) {
-    cat('The query was rejected due to a syntax error.\n')
-  } else {
-    return(data$records)
+  # Look up each investigation and determine health unit
+  results <- map(data$records, function(case) {
+    resp <- GET(
+      paste(
+        'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/sobjects/Case/',
+        case$CCM_Investigation__c,
+        '?fields=CCM_New_Diagnosing_PHU__c'
+        sep=''
+      ),
+      add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
+    )
+    stop_for_status(resp, paste('get case while searching risk factors\n', content(resp)$message))
+    caseData <- fromJSON(content(resp, 'text'))
+    return(
+      identical(
+        caseData$CCM_New_Diagnosing_PHU__c,
+        getHealthUnitByName(options$healthUnit)
+      )
+    )
+  })
+  for (index in 1:length(data$records$Id)) {
+    if (results[index]) {
+      filteredRiskFactors <- data$records$Id[index]
+    }
   }
+  return(filteredRiskFactors)
 }
