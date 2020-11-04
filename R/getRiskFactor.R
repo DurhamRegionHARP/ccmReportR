@@ -1,44 +1,25 @@
 # Execute a SOQL query against the CCM_Risk_Factor__c object
 # The CCM_Risk_Factor__c object maps to Risk Factors
 # on the client side
+#
+# Since investigation ID is a foreign key in the risk
+# factor table:
+#   1. If case list is passed in, return corresponding risk factors
+#   2. If no case list, return all risk factors with investigation id attached
 
 getRiskFactors <- function(options = list()) {
   # Fall back to defaults when no options are passed in
   if(!length(options)) {
     options$riskFactorType <- NULL
-    options$from <- 'YESTERDAY'
-    options$to <- NULL
-    options$columns <- 'Id'
-    options$healthUnit <- NULL
+    options$columns <- c('Id', 'CCM_Investigation__c')
+    options$caseList <- NULL
   }
   # Translate each option to language Salesforce expects
   statements <- list()
-  if (!is.null(options$to)) {
-    statements$dateRange <- paste(
-      "LastModifiedDate>='",
-      options$from,
-      "'",
-      " AND ",
-      "LastModifiedDate<='",
-      options$to,
-      "'",
-      sep=''
-    )
-  } else {
-    statements$dateRange <- paste('LastModifiedDate=', options$from, sep='')
-  }
   if (!is.null(options$riskFactorType)) {
     statements$recordTypeId <- paste(
       "RecordTypeId='",
       getRecordTypeId(options$riskFactorType),
-      "'",
-      sep=''
-    )
-  }
-  if (!is.null(options$healthUnit)) {
-    statements$phu <- paste(
-      "CCM_New_Diagnosing_PHU__c='",
-      getHealthUnitByName(options$healthUnit),
       "'",
       sep=''
     )
