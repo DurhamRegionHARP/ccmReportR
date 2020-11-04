@@ -6,28 +6,28 @@
 # 2. for each element, look up case then return TURE or FALSE for health unit
 # 3. Filter list in #1 with results from #2
 
-getRiskFactors <- function(options = list()) {
-  # Fall back to defaults when no options are passed in
-  if(!length(options)) {
-    options$riskFactorType <- NULL
-    options$healthUnit <- NULL
-  }
+getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
   # Translate each option to language Salesforce expects
   # TODO: allow array of record types
-  if (!is.null(options$riskFactorType)) {
-    whereClause <- paste(
-      "WHERE+RecordTypeId='",
-      getRecordTypeId(options$riskFactorType),
-      "'",
-      sep=''
-    )
-  }
   query <- paste(
     "SELECT+Id+CCM_Investigation__c",
     "FROM+CCM_Risk_Factor__c",
-    whereClause,
     sep="+"
   )
+  if (!is.null(riskFactorType)) {
+    whereClause <- paste(
+      "WHERE+RecordTypeId='",
+      getRecordTypeId(riskFactorType),
+      "'",
+      sep=''
+    )
+    query <- paste(
+      "SELECT+Id+CCM_Investigation__c",
+      "FROM+CCM_Risk_Factor__c",
+      whereClause,
+      sep="+"
+    )
+  }
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   resp <- GET(
