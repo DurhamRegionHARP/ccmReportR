@@ -10,7 +10,7 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
   # Translate each option to language Salesforce expects
   # TODO: allow array of record types
   query <- paste(
-    "SELECT+Id+CCM_Investigation__c",
+    "SELECT+Id,CCM_Investigation__c",
     "FROM+CCM_Risk_Factor__c",
     sep="+"
   )
@@ -22,7 +22,7 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
       sep=''
     )
     query <- paste(
-      "SELECT+Id+CCM_Investigation__c",
+      "SELECT+Id,CCM_Investigation__c",
       "FROM+CCM_Risk_Factor__c",
       whereClause,
       sep="+"
