@@ -42,7 +42,7 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
       paste(
         'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/sobjects/Case/',
         case$CCM_Investigation__c,
-        '?fields=CCM_New_Diagnosing_PHU__c'
+        '?fields=CCM_New_Diagnosing_PHU__c',
         sep=''
       ),
       add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
