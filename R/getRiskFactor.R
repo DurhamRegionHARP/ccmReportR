@@ -52,13 +52,13 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
     return(
       identical(
         caseData$CCM_New_Diagnosing_PHU__c,
-        getHealthUnitByName(options$healthUnit)
+        getHealthUnitByName(healthUnit)
       )
     )
   })
   for (index in 1:length(data$records$Id)) {
     if (results[index]) {
-      filteredRiskFactors <- data$records$Id[index]
+      filteredRiskFactors <- data$records[index,-1]
     }
   }
   return(filteredRiskFactors)
