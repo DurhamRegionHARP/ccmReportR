@@ -59,7 +59,7 @@ getRiskFactors <- function(options = list()) {
   query <- paste(
     "SELECT",
     paste(options$columns, collapse=","),
-    "FROM+Case",
+    "FROM+CCM_Risk_Factor__c",
     "WHERE",
     whereClause,
     sep="+"
@@ -70,7 +70,7 @@ getRiskFactors <- function(options = list()) {
     url = paste(resource_uri, query, sep=''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
-  warn_for_status(resp, paste('get cases!\n', content(resp)$message))
+  warn_for_status(resp, paste('get risk factors!\n', content(resp)$message))
   data <- fromJSON(content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     cat('The query was rejected due to a syntax error.\n')
