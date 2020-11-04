@@ -15,17 +15,17 @@ getRiskFactors <- function(options = list()) {
   statements <- list()
   if (!is.null(options$to)) {
     statements$dateRange <- paste(
-      "CCM_ReportedDate__c>='",
+      "LastModifiedDate>='",
       options$from,
       "'",
       " AND ",
-      "CCM_ReportedDate__c<='",
+      "LastModifiedDate<='",
       options$to,
       "'",
       sep=''
     )
   } else {
-    statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
+    statements$dateRange <- paste('LastModifiedDate=', options$from, sep='')
   }
   if (!is.null(options$riskFactorType)) {
     statements$recordTypeId <- paste(
