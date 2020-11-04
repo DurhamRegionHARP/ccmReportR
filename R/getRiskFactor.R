@@ -12,20 +12,16 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
   query <- paste(
     "SELECT+Id,CCM_Investigation__c",
     "FROM+CCM_Risk_Factor__c",
+    "WHERE+CCM_Investigation__c!=null"
     sep="+"
   )
   if (!is.null(riskFactorType)) {
-    whereClause <- paste(
-      "WHERE+RecordTypeId='",
+    query <- paste(
+      query,
+      "+AND+RecordTypeId='",
       getRecordTypeId(riskFactorType),
       "'",
       sep=''
-    )
-    query <- paste(
-      "SELECT+Id,CCM_Investigation__c",
-      "FROM+CCM_Risk_Factor__c",
-      whereClause,
-      sep="+"
     )
   }
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
