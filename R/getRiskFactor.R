@@ -22,7 +22,8 @@ getRiskFactors <- function(options = list()) {
       "CCM_ReportedDate__c<='",
       options$to,
       "'",
-      sep='')
+      sep=''
+    )
   } else {
     statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
   }
