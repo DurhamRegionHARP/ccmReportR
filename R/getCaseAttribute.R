@@ -48,6 +48,17 @@ getCaseAttribute <- function(attribute, case) {
         'CCM_ObservationDateTime__c',
         'CCM_ReportedDate__c'
       )
+    ),
+    exposures = list(
+      table = 'Exposed_Contact__c',
+      columns = c(
+        'Id',
+        'Investigation__c',
+        'Exposure_Mode__c',
+        'Exposure__c',
+        'Beginning_Date_of_Exposure_Contact__c',
+        'CCM_IsPrimary_or_Indexed_Investigation__c',
+      )
     )
   )
   # Check correct attribute name
