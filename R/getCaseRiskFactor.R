@@ -1,6 +1,6 @@
 # Return the risk factors for a list of cases
 getCaseRiskFactor <- function(cases) {
-  results <- map(cases, function(case) {
+  results <- map_dfr(cases, function(case) {
     query <- paste(
       "SELECT+Id,CCM_Investigation__c,RecordTypeId,CCM_RiskFactor_Info__c,CCM_AdditionalRisk_lnfo__c",
       "+FROM+CCM_Risk_Factor__c",
