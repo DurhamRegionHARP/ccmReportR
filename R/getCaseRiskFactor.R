@@ -23,7 +23,7 @@ getCaseRiskFactor <- function(cases) {
         CCM_AdditionalRisk_lnfo__c = NA
       ))
     } else {
-      return (data$records)
+      return(data$records)
     }
   })
 }
