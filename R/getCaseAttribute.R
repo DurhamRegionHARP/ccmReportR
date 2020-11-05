@@ -17,13 +17,11 @@ getCaseAttribute <- function(attribute, case) {
       )
     ),
     symptoms = list(
-      table = 'CCM_Risk_Factor__c',
+      table = 'CCM_Symptoms__c',
       columns = c(
         'Id',
-        'CCM_Investigation__c',
-        'RecordTypeId',
-        'CCM_RiskFactor_Info__c',
-        'CCM_AdditionalRisk_lnfo__c'
+        'CCM_Case__c',
+        'Name'
       )
     ),
     interventions = list(
