@@ -19,19 +19,16 @@ getAttribute <- function(caseId, optionsList) {
   )
   stop_for_status(resp, paste('get attributes!\n',  fromJSON(content(resp, 'text'))$message))
   data <- fromJSON(content(resp, 'text'))
+  dataWithLabels <- list()
   if (!data$totalSize) {
-    for (index in 1:length(optionList$columns)) {
-      dataWithLabels <- list(
-        optionsList$columns[[index]] <- NA
-      )
-      # Override the case id property
-      dataWithLabels$investigationId <- caseId
+    for (index in 1:length(optionsList$columns)) {
+      dataWithLabels[[optionsList$columns[index]]] <- NA
     }
+    # Override the case id property
+    dataWithLabels[[2]] <- caseId
   } else {
-    for (index in 1:length(optionList$columns)) {
-      dataWithLabels <- list(
-        optionsList$columns[[index]] <- data$records[[index]]
-      )
+    for (index in 1:length(optionsList$columns)) {
+      dataWithLabels[[optionsList$columns[index]]] <- data$records[[index + 1]]
     }
   }
   return(dataWithLabels)

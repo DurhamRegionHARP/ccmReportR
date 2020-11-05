@@ -2,7 +2,7 @@
 getCaseAttribute <- function(attribute, case) {
   # Check attribute
   if (!length(attribute) == 1) {
-    stop('Error: function parameter attribute must have length == 1!', call. = FALSE)
+    stop('function parameter attribute must have length == 1!', call. = FALSE)
   }
   # Set function options
   fnOptions <- list(
@@ -40,17 +40,25 @@ getCaseAttribute <- function(attribute, case) {
       )
     ),
     labResults = list(
-      table = 'CCM_Risk_Factor__c',
+      table = 'Lab_Results__c',
       columns = c(
         'Id',
         'Case__c',
         'CCM_LabOrderID__c',
         'CCM_ObservationResultStatus__c',
         'CCM_InterpretationValue__c',
-        'CCM_CollectionDate__c','CCM_ReportedDate__c'
+        'CCM_ObservationDateTime__c',
+        'CCM_ReportedDate__c'
       )
-    ),
+    )
   )
+  # Check correct attribute name
+  if (!(attribute %in% names(fnOptions))) {
+    stop(
+      paste(attribute, "is not a valid attribute name!\n"),
+      call. = FALSE
+    )
+  }
   # Map through `cases` and return `attribute` data
   data <- map_dfr(case, function(el) {
     getAttribute(el, fnOptions[[attribute]])
