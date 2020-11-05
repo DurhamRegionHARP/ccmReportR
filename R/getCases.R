@@ -12,7 +12,7 @@ getCases <- function(
     confirmedOnly = FALSE,
     from = 'YESTERDAY',
     to = NULL,
-    columns = 'Id',
+    columns = NULL,
     healthUnit = NULL
   )
 ) {
