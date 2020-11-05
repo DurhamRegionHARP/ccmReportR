@@ -45,6 +45,9 @@ getCases <- function(options = list()) {
       sep=''
     )
   }
+  if (!is.null(options$columns)) {
+    options$columns <- 'Id'
+  }
   # Build the WHERE clause for the query
   for (statement in 1:length(statements)) {
     if (statement == 1) {
