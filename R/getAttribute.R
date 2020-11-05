@@ -6,7 +6,7 @@ getAttribute <- function(caseId, optionsList) {
     "+FROM+",
     optionsList$table,
     "+WHERE+",
-    optionsList$caseField,
+    optionsList$columns[[2]],
     "='",
     caseId,
     "'",
