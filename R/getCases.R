@@ -35,7 +35,7 @@ getCases <- function(options = list()) {
       "'",
       sep='')
   } else {
-    statements$dateRange <- "CCM_ReportedDate__c=YESTERDAY"
+    statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
   }
   if (!is.null(options$healthUnit)) {
     statements$phu <- paste(
