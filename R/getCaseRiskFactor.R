@@ -6,7 +6,7 @@ getCaseRiskFactor <- function(cases) {
       "FROM+CCM_Risk_Factor__c",
       "WHERE+CCM_Investigation__c='",
       case,
-      "'"
+      "'",
       sep="+"
     )
     resp <- GET(
