@@ -21,7 +21,7 @@ getCaseRiskFactor <- function(cases) {
         Id = NA,
         CCM_Investigation__c = case,
         RecordTypeId = NA,
-        CCM_RiskFactor_Info_c = NA,
+        CCM_RiskFactor_Info__c = NA,
         CCM_AdditionalRisk_lnfo__c = NA
       ))
     } else {
