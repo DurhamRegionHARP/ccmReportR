@@ -7,16 +7,15 @@
 #    - columns: character vector of data to query
 #    - healthUnit: Limit the query using `Permanent PHU`
 
-getCases <- function(options = list()) {
-  # Fall back to defaults when no options are passed in
-  if(!length(options)) {
-    options$confirmedOnly <- FALSE
-    options$from <- 'YESTERDAY'
-    options$to <- NULL
-    options$columns <- 'Id'
-    options$healthUnit <- NULL
-  }
-
+getCases <- function(
+  options = list(
+    confirmedOnly = FALSE
+    from = 'YESTERDAY'
+    to = NULL
+    columns = 'Id'
+    healthUnit = NULL
+  )
+) {
   # Translate each option to language Salesforce expects
   statements <- list()
   if (options$confirmedOnly) {
