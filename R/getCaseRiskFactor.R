@@ -9,6 +9,7 @@ getCaseRiskFactor <- function(cases) {
       "'",
       sep="+"
     )
+    resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
     resp <- GET(
       url = paste(resource_uri, query, sep=''),
       add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
