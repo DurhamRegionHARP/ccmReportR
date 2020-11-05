@@ -27,4 +27,3 @@ getCaseRiskFactor <- function(cases) {
     }
   })
 }
-b
