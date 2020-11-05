@@ -36,6 +36,9 @@ getCases <- function(
   } else {
     statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
   }
+  if (!('from' %in% names(options))) {
+    statements$dateRange <- 'CCM_ReportedDate__c=YESTERDAY'
+  }
   if (!is.null(options$healthUnit)) {
     statements$phu <- paste(
       "CCM_New_Diagnosing_PHU__c='",
@@ -76,7 +79,7 @@ getCases <- function(
     url = paste(resource_uri, query, sep=''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
-  stop_for_status(resp, paste('get cases!\n', content(resp)$message))
+  stop_for_status(resp, paste('get cases!\n', fromJSON(content(resp, 'text'))$message))
   # Parse the results
   data <- fromJSON(content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
