@@ -7,12 +7,13 @@
 # 3. Filter list in #1 with results from #2
 
 getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
+  healthUnitId <- getHealthUnitByName(healthUnit)
   # Translate each option to language Salesforce expects
   # TODO: allow array of record types
   query <- paste(
     "SELECT+Id,CCM_Investigation__c",
     "FROM+CCM_Risk_Factor__c",
-    "WHERE+CCM_Investigation__c!=null"
+    "WHERE+CCM_Investigation__c!=null+LIMIT+150",
     sep="+"
   )
   if (!is.null(riskFactorType)) {
@@ -33,11 +34,11 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
   stop_for_status(resp, paste('get risk factors!\n', content(resp)$message))
   data <- fromJSON(content(resp, 'text'))
   # Look up each investigation and determine health unit
-  results <- map(data$records, function(case) {
+  results <- map(data$records$CCM_Investigation__c, function(case) {
     resp <- GET(
       paste(
         'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/sobjects/Case/',
-        case$CCM_Investigation__c,
+        case,
         '?fields=CCM_New_Diagnosing_PHU__c',
         sep=''
       ),
@@ -45,16 +46,19 @@ getRiskFactors <- function(healthUnit, riskFactorType = NULL) {
     )
     stop_for_status(resp, paste('get case while searching risk factors\n', content(resp)$message))
     caseData <- fromJSON(content(resp, 'text'))
+    print(caseData$CCM_New_Diagnosing_PHU__c)
+    print(healthUnitId)
     return(
       identical(
         caseData$CCM_New_Diagnosing_PHU__c,
-        getHealthUnitByName(healthUnit)
+        healthUnitId
       )
     )
   })
+  filteredRiskFactors <- data.frame()
   for (index in 1:length(data$records$Id)) {
-    if (results[index]) {
-      filteredRiskFactors <- data$records[index,-1]
+    if (results[[index]]) {
+      filteredRiskFactors <- rbind(filteredRiskFactors, data$records[index,-1])
     }
   }
   return(filteredRiskFactors)
