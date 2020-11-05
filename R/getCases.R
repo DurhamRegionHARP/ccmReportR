@@ -44,7 +44,7 @@ getCases <- function(
       sep=''
     )
   }
-  if (!is.null(options$columns)) {
+  if (is.null(options$columns)) {
     options$columns <- 'Id'
   }
   # Build the WHERE clause for the query
@@ -69,7 +69,6 @@ getCases <- function(
     whereClause,
     sep="+"
   )
-  print(query)
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   # Post the query to Salesforce
@@ -77,7 +76,7 @@ getCases <- function(
     url = paste(resource_uri, query, sep=''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
-  warn_for_status(resp, paste('get cases!\n', content(resp)$message))
+  stop_for_status(resp, paste('get cases!\n', content(resp)$message))
   # Parse the results
   data <- fromJSON(content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
