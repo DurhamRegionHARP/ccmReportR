@@ -9,10 +9,10 @@
 
 getCases <- function(
   options = list(
-    confirmedOnly = FALSE
-    from = 'YESTERDAY'
-    to = NULL
-    columns = 'Id'
+    confirmedOnly = FALSE,
+    from = 'YESTERDAY',
+    to = NULL,
+    columns = 'Id',
     healthUnit = NULL
   )
 ) {
