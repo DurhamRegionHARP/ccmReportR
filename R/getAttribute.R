@@ -22,7 +22,7 @@ getAttribute <- function(caseId, optionsList) {
   if (!data$totalSize) {
     for (index in 1:length(optionList$columns)) {
       dataWithLabels <- list(
-        optionsList$columns[[index]] = NA
+        optionsList$columns[[index]] <- NA
       )
       # Override the case id property
       dataWithLabels$investigationId <- caseId
@@ -30,7 +30,7 @@ getAttribute <- function(caseId, optionsList) {
   } else {
     for (index in 1:length(optionList$columns)) {
       dataWithLabels <- list(
-        optionsList$columns[[index]] = data$records[[index]]
+        optionsList$columns[[index]] <- data$records[[index]]
       )
     }
   }
