@@ -11,7 +11,7 @@ getCaseAttribute <- function(attribute, case) {
       columns = c(
         'Id',
         'CCM_Investigation__c',
-        'RecordTypeId',
+        'RecordType.Name',
         'CCM_RiskFactor_Info__c',
         'CCM_AdditionalRisk_lnfo__c'
       )
@@ -29,7 +29,7 @@ getCaseAttribute <- function(attribute, case) {
       columns = c(
         'Id',
         'Case__c',
-        'RecordTypeId',
+        'RecordType.Name',
         'Intervention__c',
         'Intervention_Information__c',
         'StartDate__c',
@@ -55,7 +55,8 @@ getCaseAttribute <- function(attribute, case) {
         'Id',
         'Investigation__c',
         'Exposure_Mode__c',
-        'Exposure__c',
+        'Exposure__r.Name',
+        'Exposure__r.Exposure_Setting_Type__c',
         'Beginning_Date_of_Exposure_Contact__c',
         'CCM_IsPrimary_or_Indexed_Investigation__c',
       )

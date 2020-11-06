@@ -28,7 +28,18 @@ getAttribute <- function(caseId, optionsList) {
     dataWithLabels[[2]] <- caseId
   } else {
     for (index in 1:length(optionsList$columns)) {
-      dataWithLabels[[optionsList$columns[index]]] <- data$records[[index + 1]]
+      if (!length(data$records[[index]]) == 1){
+        # Nested parent property found
+        # loop through to bring this to the top level
+        parentRecords <- map(data$records[[index]], function(el) {
+          return(el)
+        })
+        for (parentIndex in 1:length(parentRecords)) {
+          dataWithLabels[[optionsList$columns[index]]] <- parentRecords[[parentIndex + 1]]
+        }
+      } else {
+        dataWithLabels[[optionsList$columns[index]]] <- data$records[[index + 1]]
+      }
     }
   }
   return(dataWithLabels)
