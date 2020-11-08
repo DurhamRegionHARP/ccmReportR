@@ -19,28 +19,15 @@ getAttribute <- function(caseId, optionsList) {
   )
   stop_for_status(resp, paste('get attributes!\n',  fromJSON(content(resp, 'text'))$message))
   data <- fromJSON(content(resp, 'text'))
-  dataWithLabels <- list()
   if (!data$totalSize) {
+    attribute <- list()
     for (index in 1:length(optionsList$columns)) {
-      dataWithLabels[[optionsList$columns[index]]] <- NA
+      attribute[[optionsList$columns[[index]]]] <- NA
     }
-    # Override the case id property
-    dataWithLabels[[2]] <- caseId
+    attribute[[2]] <- caseId
   } else {
-    for (index in 1:length(optionsList$columns)) {
-      if (!length(data$records[[index]]) == 1){
-        # Nested parent property found
-        # loop through to bring this to the top level
-        parentRecords <- map(data$records[[index]], function(el) {
-          return(el)
-        })
-        for (parentIndex in 1:length(parentRecords)) {
-          dataWithLabels[[optionsList$columns[index]]] <- parentRecords[[parentIndex + 1]]
-        }
-      } else {
-        dataWithLabels[[optionsList$columns[index]]] <- data$records[[index + 1]]
-      }
-    }
+    flatData <- jsonlite::flatten(as.data.frame(data$records))
+    attribute <- select(flatData, all_of(optionsList$columns))
   }
-  return(dataWithLabels)
+  return(attribute)
 }

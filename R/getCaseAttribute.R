@@ -58,7 +58,7 @@ getCaseAttribute <- function(attribute, case) {
         'Exposure__r.Name',
         'Exposure__r.Exposure_Setting_Type__c',
         'Beginning_Date_of_Exposure_Contact__c',
-        'CCM_IsPrimary_or_Indexed_Investigation__c',
+        'CCM_IsPrimary_or_Indexed_Investigation__c'
       )
     )
   )
