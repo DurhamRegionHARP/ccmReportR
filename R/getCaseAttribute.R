@@ -60,6 +60,15 @@ getCaseAttribute <- function(attribute, case) {
         'Beginning_Date_of_Exposure_Contact__c',
         'CCM_IsPrimary_or_Indexed_Investigation__c'
       )
+    ),
+    outbreaks = list(
+      table = 'Case',
+      columns = c(
+        'CCM_Investigation_Outbreak__r.CCM_Outbreak_Number__c',
+        'Id',
+        'CCM_Investigation_Outbreak__r.Name',
+        'CCM_Investigation_Outbreak__r.CCM_Outbreak_Status__c'
+      )
     )
   )
   # Check correct attribute name

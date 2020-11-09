@@ -19,6 +19,7 @@ getAttribute <- function(caseId, optionsList) {
   )
   stop_for_status(resp, paste('get attributes!\n',  fromJSON(content(resp, 'text'))$message))
   data <- fromJSON(content(resp, 'text'))
+  print(data)
   if (!data$totalSize) {
     attribute <- list()
     for (index in 1:length(optionsList$columns)) {
