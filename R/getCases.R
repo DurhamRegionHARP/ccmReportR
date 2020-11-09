@@ -25,13 +25,11 @@ getCases <- function(
   }
   if (!is.null(options$to)) {
     statements$dateRange <- paste(
-      "CCM_ReportedDate__c>='",
+      "CCM_ReportedDate__c>=",
       options$from,
-      "'",
-      " AND ",
-      "CCM_ReportedDate__c<='",
+      "+AND+",
+      "CCM_ReportedDate__c<=",
       options$to,
-      "'",
       sep='')
   } else {
     statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
