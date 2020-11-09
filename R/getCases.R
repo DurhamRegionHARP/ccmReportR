@@ -26,16 +26,16 @@ getCases <- function(
   if (!is.null(options$to)) {
     statements$dateRange <- paste(
       "CCM_ReportedDate__c>=",
-      options$from,
+      makeTimestamp(options$from),
       "+AND+",
       "CCM_ReportedDate__c<=",
-      options$to,
+      makeTimestamp(options$to),
       sep='')
   } else {
     statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
   }
   if (!('from' %in% names(options))) {
-    statements$dateRange <- 'CCM_ReportedDate__c=YESTERDAY'
+    statements$dateRange <- paste('CCM_ReportedDate__c', makeTimestamp(Sys.Date() - days(1)))
   }
   if (!is.null(options$healthUnit)) {
     statements$phu <- paste(
