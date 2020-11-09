@@ -4,49 +4,43 @@
 #    - confirmedOnly: Limit the query to select confirmed cases
 #    - from: Query cases beginning on this date
 #    - to: Query cases up to this date
-#    - columns: character vector of data to query
+#    - columns: character vector of fields to query
 #    - healthUnit: Limit the query using `Permanent PHU`
 
 getCases <- function(
-  options = list(
     confirmedOnly = FALSE,
-    from = 'YESTERDAY',
-    to = NULL,
-    columns = NULL,
+    from = "1990-01-01",
+    to = as.character(Sys.Date()),
+    columns = 'Id',
     healthUnit = NULL
-  )
-) {
+  ) {
   # Translate each option to language Salesforce expects
   statements <- list()
-  if (options$confirmedOnly) {
+  if (from > to) {
+    stop('Arguement `from` must preceed arguement `to`.\n')
+  }
+  statements$dateRange <- paste(
+    "CCM_ReportedDate__c>=",
+    makeTimestamp(from),
+    "+AND+",
+    "CCM_ReportedDate__c<=",
+    makeTimestamp(to),
+    sep = ''
+  )
+  if (confirmedOnly) {
     statements$classification <- "CCM_Classification__c='CONFIRMED'"
   } else {
     statements$classification <- "CCM_Classification__c+includes+('CONFIRMED','PROBABLE')"
   }
-  if (!is.null(options$to)) {
-    statements$dateRange <- paste(
-      "CCM_ReportedDate__c>=",
-      makeTimestamp(options$from),
-      "+AND+",
-      "CCM_ReportedDate__c<=",
-      makeTimestamp(options$to),
-      sep='')
-  } else {
-    statements$dateRange <- paste('CCM_ReportedDate__c=', options$from, sep='')
-  }
-  if (!('from' %in% names(options))) {
-    statements$dateRange <- paste('CCM_ReportedDate__c', makeTimestamp(Sys.Date() - days(1)))
-  }
-  if (!is.null(options$healthUnit)) {
+  if (!is.null(healthUnit)) {
     statements$phu <- paste(
       "CCM_New_Diagnosing_PHU__c='",
-      getHealthUnitByName(options$healthUnit),
+      getHealthUnitByName(healthUnit),
       "'",
-      sep=''
+      sep = ''
     )
-  }
-  if (is.null(options$columns)) {
-    options$columns <- 'Id'
+  } else {
+    warning('No health unit specified. This may return a lot of results!\n')
   }
   # Build the WHERE clause for the query
   for (statement in 1:length(statements)) {
@@ -57,24 +51,23 @@ getCases <- function(
         whereClause,
         "+AND+",
         statements[[statement]],
-        sep=''
+        sep = ''
       )
     }
   }
-
   query <- paste(
     "SELECT",
-    paste(options$columns, collapse=","),
+    paste(columns, collapse = ','),
     "FROM+Case",
     "WHERE",
     whereClause,
-    sep="+"
+    sep = '+'
   )
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   # Post the query to Salesforce
   resp <- GET(
-    url = paste(resource_uri, query, sep=''),
+    url = paste(resource_uri, query, sep = ''),
     add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
   )
   stop_for_status(resp, paste('get cases!\n', fromJSON(content(resp, 'text'))$message))
