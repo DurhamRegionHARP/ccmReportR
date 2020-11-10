@@ -8,6 +8,7 @@ getCaseAttribute <- function(attribute, case) {
   fnOptions <- list(
     riskFactors = list(
       table = 'CCM_Risk_Factor__c',
+      name = 'Risk Factors',
       columns = c(
         'Id',
         'CCM_Investigation__c',
@@ -18,6 +19,7 @@ getCaseAttribute <- function(attribute, case) {
     ),
     symptoms = list(
       table = 'CCM_Symptoms__c',
+      name = 'Symptoms',
       columns = c(
         'Id',
         'CCM_Case__c',
@@ -26,6 +28,7 @@ getCaseAttribute <- function(attribute, case) {
     ),
     interventions = list(
       table = 'Hospitalization__c',
+      name = 'Interventions',
       columns = c(
         'Id',
         'Case__c',
@@ -39,6 +42,7 @@ getCaseAttribute <- function(attribute, case) {
     ),
     labResults = list(
       table = 'Lab_Results__c',
+      name = 'Lab Results',
       columns = c(
         'Id',
         'Case__c',
@@ -51,6 +55,7 @@ getCaseAttribute <- function(attribute, case) {
     ),
     exposures = list(
       table = 'Exposed_Contact__c',
+      name = 'Exposures',
       columns = c(
         'Id',
         'Investigation__c',
@@ -63,9 +68,11 @@ getCaseAttribute <- function(attribute, case) {
     ),
     outbreaks = list(
       table = 'Case',
+      name = 'Outbreaks',
       columns = c(
-        'CCM_Investigation_Outbreak__r.CCM_Outbreak_Number__c',
+        'CCM_Investigation_Outbreak__c',
         'Id',
+        'CCM_Investigation_Outbreak__r.CCM_Outbreak_Number__c',
         'CCM_Investigation_Outbreak__r.Name',
         'CCM_Investigation_Outbreak__r.CCM_Outbreak_Status__c'
       )

@@ -1,16 +1,24 @@
 # Return the risk factors for a list of cases
 getAttribute <- function(caseId, optionsList) {
+  # Outbreaks require both case Id and outbreak Id in the WHERE clause
+  whereClause <- paste(optionsList$columns[[2]], "='", caseId, "'", sep = '')
+  if (optionsList$name == 'Outbreaks') {
+    whereClause <- paste(
+      whereClause,
+      '+AND+',
+      optionsList$columns[[1]],
+      '!=null',
+      sep = ''
+    )
+  }
   query <- paste(
     "SELECT+",
     paste(optionsList$columns, collapse = ','),
     "+FROM+",
     optionsList$table,
     "+WHERE+",
-    optionsList$columns[[2]],
-    "='",
-    caseId,
-    "'",
-    sep=""
+    whereClause,
+    sep = ''
   )
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   resp <- GET(
@@ -19,7 +27,6 @@ getAttribute <- function(caseId, optionsList) {
   )
   stop_for_status(resp, paste('get attributes!\n',  fromJSON(content(resp, 'text'))$message))
   data <- fromJSON(content(resp, 'text'))
-  print(data)
   if (!data$totalSize) {
     attribute <- list()
     for (index in 1:length(optionsList$columns)) {
