@@ -1,10 +1,11 @@
-# Implement the OAuth2.0 device grant flow
-# https://tools.ietf.org/html/rfc6749#section-1.3.1
-# https://help.salesforce.com/articleView?id=remoteaccess_oauth_device_flow.htm&type=5
-#
-# Returns a CCM access token for use in
-# authorizing subsequent CCM requests
-
+#' Obtain an access token to authroize requests
+#'
+#' This function implements the OAuth2.0 device grant flow
+#' see <https://tools.ietf.org/html/rfc6749#section-1.3.1>
+#' and <https://help.salesforce.com/articleView?id=remoteaccess_oauth_device_flow.htm&type=5>
+#' for more information. The token is stored in the OS keyring.
+#'
+#' @return CCM access token for use in authorizing subsequent requests.
 
 login <- function() {
   aurhtorizationBody <- list(

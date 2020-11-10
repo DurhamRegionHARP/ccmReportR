@@ -21,7 +21,7 @@ by default.}
 to include in the query. Defaluts to the origin date of CCM.}
 
 \item{to}{Character scalar. Identifies the end of the date range
-to include in the query. Defaults to Sys.Date() (i.e. today's date).}
+to include in the query. Defaults to \code{Sys.Date()} (i.e. today's date).}
 
 \item{columns}{Character scalar or character vector. Names the columns to
 return from the Case object. Defaults to \code{Id}}
@@ -34,7 +34,7 @@ to NULL (i.e. no health unit filter).}
 If the query succeeds, a \code{list()} containing \code{columns}.
 }
 \description{
-\code{getCases()} returns a list() of data from the CCM Case object.
+\code{getCases()} returns a \code{list()} of data from the CCM Case object.
 The Case object maps to Investigations on the client-side.
 }
 \examples{
