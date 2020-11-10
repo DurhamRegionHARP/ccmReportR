@@ -1,11 +1,38 @@
-# Execute a SOQL query against the Case object
-# The Case object maps to Investigations on the client-side
-# Options:
-#    - confirmedOnly: Limit the query to select confirmed cases
-#    - from: Query cases beginning on this date
-#    - to: Query cases up to this date
-#    - columns: character vector of fields to query
-#    - healthUnit: Limit the query using `Permanent PHU`
+#' Execute a SOQL query against the Case object
+#'
+#' `getCases()` returns a list() of data from the CCM Case object.
+#' The Case object maps to Investigations on the client-side.
+#'
+#' @param confirmedOnly Logical scalar. Should the query limit
+#'   results to confirmed cases? Returns confirmed and probable cases
+#'   by default.
+#' @param from Character scalar. Identifies the start of the date range
+#'   to include in the query. Defaluts to the origin date of CCM.
+#' @param to Character scalar. Identifies the end of the date range
+#'   to include in the query. Defaults to Sys.Date() (i.e. today's date).
+#' @param columns Character scalar or character vector. Names the columns to
+#'   return from the Case object. Defaults to `Id`
+#' @param healthUnit Character vector or scalar. Names the Public Health Unit
+#'   used to filter the query. `getCases()` filters on Permanent PHU. Defaults
+#'   to NULL (i.e. no health unit filter).
+#' @return If the query succeeds, a `list()` containing `columns`.
+#' @examples
+#' \dontrun{
+#' Get all confirmed cases for Waterloo Region
+#' cases <- getCases(
+#'   confirmedOnly = TRUE,
+#'   healthUnit = 'Waterloo'
+#' )
+#' Specify the data to return. See ...
+#' cases <- getCases(
+#'   columns = c("Id", "CCM_ReportedDate__c", "CCM_EpisodeDate__c", "CCM_Episode_Date_Type__c")
+#' )
+#' Limit the data to a time period
+#' cases <- getCases(
+#'   from = "2020-10-12",
+#'   to = "2020-10-17"
+#' )
+#' }
 
 getCases <- function(
     confirmedOnly = FALSE,
