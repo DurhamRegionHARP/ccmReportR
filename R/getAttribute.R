@@ -1,4 +1,18 @@
-# Return the risk factors for a list of cases
+#' Get data from CCM for a specified case
+#'
+#' `getAttribute()` queries CCM for details about
+#' a case. the parameter `optionsList` specifies the
+#' columns to return.
+#'
+#' @param caseId character scalar. Names the case to
+#'   obtain information about.
+#' @param optionsList list object. Controls the behaviour
+#'  of the query, including the filter for the query, and
+#'  data to return.
+#' @returns If the query succeeds, a `list()` containing data
+#'  for the specified `caseId`. Otherwise, a `list()` of
+#'  `NA` values.
+
 getAttribute <- function(caseId, optionsList) {
   # Outbreaks require both case Id and outbreak Id in the WHERE clause
   whereClause <- paste(optionsList$columns[[2]], "='", caseId, "'", sep = '')
