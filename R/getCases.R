@@ -16,6 +16,7 @@
 #'   used to filter the query. `getCases()` filters on Permanent PHU. Defaults
 #'   to NULL (i.e. no health unit filter).
 #' @return If the query succeeds, a `list()` containing `columns`.
+#' @export
 #' @examples
 #' \dontrun{
 #' Get all confirmed cases for Waterloo Region
@@ -93,13 +94,19 @@ getCases <- function(
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
   # Post the query to Salesforce
-  resp <- GET(
+  resp <- httr::GET(
     url = paste(resource_uri, query, sep = ''),
-    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
+    httr::add_headers(Authorization = paste('Bearer', keyring::key_get('CCM', 'AccessToken')))
   )
-  stop_for_status(resp, paste('get cases!\n', fromJSON(content(resp, 'text'))$message))
+  httr::stop_for_status(
+    resp,
+    paste(
+      'get cases!\n',
+      jsonlite::fromJSON(httr::content(resp, 'text'))$message
+    )
+  )
   # Parse the results
-  data <- fromJSON(content(resp, 'text'))
+  data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     cat('The query was rejected due to a syntax error.\n')
   } else {

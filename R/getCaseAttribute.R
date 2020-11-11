@@ -20,6 +20,7 @@
 #' @seealso [getAttribute()] for information on how the CCM
 #'   query is executed. [getCases()] for obtaining Case Id's
 #'   required for this function.
+#' @export
 
 getCaseAttribute <- function(attribute, case) {
   # Check attribute
@@ -108,7 +109,7 @@ getCaseAttribute <- function(attribute, case) {
     )
   }
   # Map through `cases` and return `attribute` data
-  data <- map_dfr(case, function(el) {
+  data <- purrr::map_dfr(case, function(el) {
     getAttribute(el, fnOptions[[attribute]])
   })
 }

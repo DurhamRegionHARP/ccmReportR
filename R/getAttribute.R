@@ -35,12 +35,18 @@ getAttribute <- function(caseId, optionsList) {
     sep = ''
   )
   resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
-  resp <- GET(
+  resp <- httr::GET(
     url = paste(resource_uri, query, sep=''),
-    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
+    httr::add_headers(Authorization = paste('Bearer', keyring::key_get('CCM', 'AccessToken')))
   )
-  stop_for_status(resp, paste('get attributes!\n',  fromJSON(content(resp, 'text'))$message))
-  data <- fromJSON(content(resp, 'text'))
+  httr::stop_for_status(
+    resp,
+    paste(
+      'get attributes!\n',
+      jsonlite::fromJSON(httr::content(resp, 'text'))$message
+    )
+  )
+  data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if (!data$totalSize) {
     attribute <- list()
     for (index in 1:length(optionsList$columns)) {
@@ -49,7 +55,7 @@ getAttribute <- function(caseId, optionsList) {
     attribute[[2]] <- caseId
   } else {
     flatData <- jsonlite::flatten(as.data.frame(data$records))
-    attribute <- select(flatData, all_of(optionsList$columns))
+    attribute <- dplyr::select(flatData, all_of(optionsList$columns))
   }
   return(attribute)
 }

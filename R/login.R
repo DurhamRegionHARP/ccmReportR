@@ -6,21 +6,26 @@
 #' for more information. The token is stored in the OS keyring.
 #'
 #' @return CCM access token for use in authorizing subsequent requests.
+#' @export
 
 login <- function() {
   aurhtorizationBody <- list(
     response_type = 'device_code',
     client_id = Sys.getenv('SALESFORCE_CLIENT_ID')
   )
-  res <- POST(
+  res <- httr::POST(
     url = 'https://mohcontacttracing.my.salesforce.com/services/oauth2/token',
     body = aurhtorizationBody,
     encode = 'form'
   )
-  response <- content(res)
+  response <- httr::content(res)
   cat(
     paste(
-      'Visit ', response$verification_uri, '?user_code=', response$user_code, '\n',
+      'Open a bowser and login at: ',
+      response$verification_uri,
+      '?user_code=',
+      response$user_code,
+      '\n',
       sep = ''
     )
   )
@@ -28,22 +33,22 @@ login <- function() {
   tokenResponse <- data.frame()
   tokenBody <- list(
     grant_type = 'device',
-    client_id = Sys.getenv('SALESFORCE_CLIENT_ID'),
+    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwMikx7T4H0MkhAdtSLSGCHuyTXrFc1l7QgQhDBZuvVbj5hC1RNhPTbrazBG',
     code = response$device_code
   )
   while(!('access_token' %in% names(tokenResponse))) {
     # wait and try again
     Sys.sleep(7)
-    resp <- POST(
+    resp <- httr::POST(
       url = 'https://mohcontacttracing.my.salesforce.com/services/oauth2/token',
       body = tokenBody,
       encode = 'form'
     )
-    tokenResponse <- content(resp)
+    tokenResponse <- httr::content(resp)
   }
   cat('Login successful!\n')
   # Save the access token in the OS key ring
-  key_set_with_value(
+  keyring::key_set_with_value(
     'CCM',
     'AccessToken',
     password = tokenResponse$access_token

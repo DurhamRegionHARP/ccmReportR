@@ -9,7 +9,7 @@
 #'   of health unit Id's. Otherwise an error is returned.
 
 getHealthUnitByName <- function(healthUnitName) {
-  resp <- GET(
+  resp <- httr::GET(
     url = paste(
       'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q=',
       "SELECT+Id+FROM+PHU_Stage_Table__c+WHERE+Name='",
@@ -17,10 +17,15 @@ getHealthUnitByName <- function(healthUnitName) {
       "'",
       sep=''
     ),
-    add_headers(Authorization = paste('Bearer', key_get('CCM', 'AccessToken')))
+    httr::add_headers(Authorization = paste('Bearer', keyring::key_get('CCM', 'AccessToken')))
   )
-  stop_for_status(resp, "get a health unit ID")
-  data <- fromJSON(content(resp, 'text'))
+  httr::stop_for_status(resp,
+    paste(
+      "get a health unit ID\n",
+      jsonlite::fromJSON(httr::content(resp, 'text'))$message
+    )
+  )
+  data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if (!data$totalSize) {
     stop(
       paste('There is no health unit with name', healthUnitName, '\n', sep = '')
