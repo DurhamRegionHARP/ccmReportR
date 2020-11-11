@@ -13,9 +13,9 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
-    dplyr,
-    httr,
-    jsonlite,
-    keyring,
-    lubridate,
-    purrr
+    dplyr (>= 1.0.2),
+    httr (>= 1.4.2),
+    jsonlite (>= 1.7.1),
+    keyring (>= 1.1.0),
+    lubridate (>= 1.7.9),
+    purrr (>= 0.3.4)
