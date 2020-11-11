@@ -29,7 +29,9 @@ Open a bowser and login at: https://mohcontacttracing.my.salesforce.com/setup/co
 After entering user credentials, you should see `Login successful!` when you return to your R terminal.
 ## Get Cases
 Use the `getCases()` function to get a `list()` of cases from CCM. Function parameters allow you to control how cases are identified. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
+
 ```r
+# *N.B.* Health unit names in CCM follow a specific spelling.
 myCases <- getCases(
     healthUnit = 'Simcoe Muskoka',
     columns = c('Id', 'CCM_ReportedDate__c'),
