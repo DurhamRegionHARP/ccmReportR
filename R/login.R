@@ -11,14 +11,14 @@
 login <- function() {
   aurhtorizationBody <- list(
     response_type = 'device_code',
-    client_id = Sys.getenv('SALESFORCE_CLIENT_ID')
+    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwMikx7T4H0MkhAdtSLSGCHuyTXrFc1l7QgQhDBZuvVbj5hC1RNhPTbrazBG'
   )
   res <- httr::POST(
     url = 'https://mohcontacttracing.my.salesforce.com/services/oauth2/token',
     body = aurhtorizationBody,
     encode = 'form'
   )
-  response <- httr::content(res)
+  response <- jsonlite::fromJSON(httr::content(res, 'text'))
   cat(
     paste(
       'Open a bowser and login at: ',

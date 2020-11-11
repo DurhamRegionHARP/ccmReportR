@@ -58,9 +58,8 @@ getCaseAttribute <- function(attribute, case) {
         'RecordType.Name',
         'Intervention__c',
         'Intervention_Information__c',
-        'StartDate__c',
-        'EndDate__c',
-        'Hospital__c'
+        'Start_Date__c',
+        'End_Date__c'
       )
     ),
     labResults = list(

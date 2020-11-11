@@ -27,7 +27,7 @@ Open a bowser and login at: https://mohcontacttracing.my.salesforce.com/setup/co
 ```
 
 After entering user credentials, you should see `Login successful!` when you return to your R terminal.
-## Get Cases
+### Get Cases
 Use the `getCases()` function to get a `list()` of cases from CCM. Function parameters allow you to control how cases are identified. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
 
 ```r
@@ -46,4 +46,18 @@ str(myCases)
 #  ..$ url : chr  "/services/data/v49.0/sobjects/Case/5005X0000028zhGQAQ" "/services/data/v49.0/sobjects/Case/  5005X0000029173QAA" "/services/data/v49.0/sobjects/Case/5005X00000292dEQAQ" "/services/data/v49.0/sobjects/Case/  5005X00000293QJQAY" ...
 # $ Id                 : chr  "5005X0000028zhGQAQ" "5005X0000029173QAA" "5005X00000292dEQAQ" "5005X00000293QJQAY" ...
 # $ CCM_ReportedDate__c: chr  "2020-10-12T12:54:36.000+0000" "2020-10-12T15:43:31.000+0000" "2020-10-12T16:00:00.000+0000" # "2020-10-12T19:18:11.000+0000" ...
+```
+### Case Attributes
+Use the `getCaseAttribute` function to get a `data.frame` of useful information related to a case. Currently supported objects include:
+- Exposures
+- Interventions
+- Lab Results
+- Outbreaks
+- Risk Factors
+- Symptoms
+
+Continuing with our previous example, let's get the interventions related to our list of cases
+```r
+interventions <- getCaseAttribute('interventions', myCases$Id)
+interventions
 ```
