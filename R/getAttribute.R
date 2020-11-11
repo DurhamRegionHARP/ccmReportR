@@ -55,7 +55,7 @@ getAttribute <- function(caseId, optionsList) {
     attribute[[2]] <- caseId
   } else {
     flatData <- jsonlite::flatten(as.data.frame(data$records))
-    attribute <- dplyr::select(flatData, all_of(optionsList$columns))
+    attribute <- dplyr::select(flatData, dplyr::all_of(optionsList$columns))
   }
   return(attribute)
 }
