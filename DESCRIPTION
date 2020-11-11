@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "lanejames35@gmail.com")
 Description: This package provides a set of functions to perform queries against the CCM API.
-License: `use_mit_license()`
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
