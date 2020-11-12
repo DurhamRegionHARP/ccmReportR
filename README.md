@@ -2,7 +2,7 @@
 `ccmReportR` is an R package that warps the CCM API with user friendly functions. The package implements actions from the [Salesforce REST API](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm).
 
 Current features include:
-- OAuth2.0 authentication
+- OAuth2.0 authorization
 - Query records using the REST API
 
 ## Installation
