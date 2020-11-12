@@ -23,7 +23,7 @@ library(ccmReportR)
 # Start the login process
 login()
 # You'll be prompted to visit a URL to complete the process
-Open a bowser and login at: https://mohcontacttracing.my.salesforce.com/setup/connect?user_code=25XPRH6C
+Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/connect?user_code=25XPRH6C
 ```
 
 After entering user credentials, you should see `Login successful!` when you return to your R terminal.
@@ -59,5 +59,23 @@ Use the `getCaseAttribute` function to get a `data.frame` of useful information 
 Continuing with our previous example, let's get the interventions related to our list of cases
 ```r
 interventions <- getCaseAttribute('interventions', myCases$Id)
-interventions
+str(interventions)
+# tibble [46 x 8] (S3: tbl_df/tbl/data.frame)
+#  $ Id                         : chr [1:46] "a1u5X0000005Q3hQAE" "a1u5X0000005T7xQAE" "a1u5X0000005T87QAE" "a1u5X0000005T8CQAU" ...
+#  $ Case__c                    : chr [1:46] "5005X0000028zhGQAQ" "5005X0000029173QAA" "5005X0000029173QAA" "5005X0000029173QAA" ...
+#  $ RecordType.Name            : chr [1:46] "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" ...
+#  $ Intervention__c            : chr [1:46] "Education" "Education" "Self Monitoring by Client" "Self-Isolation at Private Residence" ...
+#  $ Intervention_Information__c: chr [1:46] "YES" "YES" "YES" "YES" ...
+#  $ Hospital_Name__r.Name      : chr [1:46] NA NA NA NA ...
+#  $ Start_Date__c              : chr [1:46] "2020-10-12" "2020-10-14" "2020-10-14" "2020-10-14" ...
+#  $ End_Date__c                : chr [1:46] NA NA NA NA ...
 ```
+
+## Road Map
+As this projects grows and matures, possible areas for improvement include:
+1. Outbreak information
+2. Exposure information
+3. Client information
+
+## Contributing
+This project is an open-source initiative and we welcome all contributions. Thank you to all contributors for your time and support!

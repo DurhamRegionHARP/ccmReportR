@@ -21,7 +21,7 @@ login <- function() {
   response <- jsonlite::fromJSON(httr::content(res, 'text'))
   cat(
     paste(
-      'Open a bowser and login at: ',
+      'Open a browser and login at: ',
       response$verification_uri,
       '?user_code=',
       response$user_code,
