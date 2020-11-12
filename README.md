@@ -16,7 +16,7 @@ devtools::install_github("lanejames35/ccmReportR")
 ```
 ## Usage
 ### Authenticate
-Authentication with CCM implements the OAuth2.0 Device Grant flow. User credentials are stored in the Operating System's keyring program (Keychain on macOS, Credential Store on Windows, etc.) 
+Authentication with CCM implements the [OAuth2.0 Device Authorization Grant](https://oauth.net/2/device-flow/). After a successful authentication, an access token is stored in the operating system's keyring program (Keychain on macOS, Credential Store on Windows, etc.) 
 ```r
 library(ccmReportR)
 
@@ -26,9 +26,10 @@ login()
 Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/connect?user_code=25XPRH6C
 ```
 
-After entering user credentials, you should see `Login successful!` when you return to your R terminal.
+After completed the login process in a web browser, you should see `Login successful!` when you return to your R terminal.
+
 ### Get Cases
-Use the `getCases()` function to get a `list()` of cases from CCM. Function parameters allow you to control how cases are identified. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
+Use the `getCases()` function to get a `list()` of cases from CCM. Typically, this will is the starting point for most applications. Function parameters allow you to control how cases are identified. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
 
 ```r
 # *N.B.* Health unit names in CCM follow a specific spelling.
@@ -36,7 +37,7 @@ myCases <- getCases(
     healthUnit = 'Simcoe Muskoka',
     columns = c('Id', 'CCM_ReportedDate__c'),
     from = "2020-10-12",
-    to = "2020-10-15",
+    to = "2020-10-15 23:59:59",
     confirmedOnly = TRUE
 )
 str(myCases)
