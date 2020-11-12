@@ -11,7 +11,7 @@
 login <- function() {
   aurhtorizationBody <- list(
     response_type = 'device_code',
-    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwMikx7T4H0MkhAdtSLSGCHuyTXrFc1l7QgQhDBZuvVbj5hC1RNhPTbrazBG'
+    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwYtJOXTCdPQF2LEAB7jbdyKDnjkFGrE4RW.8ZBwQQUp5RdOQKoKSiQIrOZK'
   )
   res <- httr::POST(
     url = 'https://mohcontacttracing.my.salesforce.com/services/oauth2/token',
@@ -33,7 +33,7 @@ login <- function() {
   tokenResponse <- data.frame()
   tokenBody <- list(
     grant_type = 'device',
-    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwMikx7T4H0MkhAdtSLSGCHuyTXrFc1l7QgQhDBZuvVbj5hC1RNhPTbrazBG',
+    client_id = '3MVG9l2zHsylwlpRMdxSJfjHJuwYtJOXTCdPQF2LEAB7jbdyKDnjkFGrE4RW.8ZBwQQUp5RdOQKoKSiQIrOZK',
     code = response$device_code
   )
   while(!('access_token' %in% names(tokenResponse))) {
