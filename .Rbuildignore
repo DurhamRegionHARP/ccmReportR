@@ -1,3 +1,4 @@
 ^LICENSE\.md$
 ^.editorconfig$
 ^.travis.yml$
+^CRAN-comments.md$
