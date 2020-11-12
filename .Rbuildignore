@@ -1,2 +1,3 @@
 ^LICENSE\.md$
 ^.editorconfig$
+^.travis.yml$
