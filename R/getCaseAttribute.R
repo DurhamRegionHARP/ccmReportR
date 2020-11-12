@@ -58,6 +58,7 @@ getCaseAttribute <- function(attribute, case) {
         'RecordType.Name',
         'Intervention__c',
         'Intervention_Information__c',
+        'Hospital_Name__r.Name',
         'Start_Date__c',
         'End_Date__c'
       )

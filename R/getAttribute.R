@@ -47,15 +47,26 @@ getAttribute <- function(caseId, optionsList) {
     )
   )
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
+  attribute <- list()
   if (!data$totalSize) {
-    attribute <- list()
     for (index in 1:length(optionsList$columns)) {
-      attribute[[optionsList$columns[[index]]]] <- NA
+      attribute[optionsList$columns[[index]]] <- NA
     }
     attribute[[2]] <- caseId
   } else {
-    flatData <- jsonlite::flatten(as.data.frame(data$records))
-    attribute <- dplyr::select(flatData, dplyr::all_of(optionsList$columns))
+    for (index in 1:length(data$records)) {
+      if (!typeof(data$records[[index]]) == 'list') {
+        attribute[optionsList$columns[length(attribute) + 1]] <- data$records[index]
+      } else {
+        if (!names(data$records[index]) == 'attributes') {
+          for (id in 1:length(data$records[[index]])) {
+            if(!names(data$records[[index]][id]) == 'attributes') {
+              attribute[optionsList$columns[length(attribute) + 1]] <- data$records[[index]][id]
+            }
+          }
+        }
+      }
+    }
   }
   return(attribute)
 }
