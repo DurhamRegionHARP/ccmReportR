@@ -1,3 +1,9 @@
 language: r
-before_install:
-    - sudo apt-get -y install libsodium-dev
+os:
+    - linux
+    - osx
+addons:
+    apt:
+        packages: libsodium-dev
+    homebrew:
+        packages: libsodium
