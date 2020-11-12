@@ -5,5 +5,3 @@ os:
 addons:
     apt:
         packages: libsodium-dev
-    homebrew:
-        packages: libsodium
