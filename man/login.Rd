@@ -2,7 +2,7 @@
 % Please edit documentation in R/login.R
 \name{login}
 \alias{login}
-\title{Obtain an access token to authroize requests}
+\title{Obtain an access token to authorize requests}
 \usage{
 login()
 }

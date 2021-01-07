@@ -7,7 +7,7 @@
 #'   results to confirmed cases? Returns confirmed and probable cases
 #'   by default.
 #' @param from Character scalar. Identifies the start of the date range
-#'   to include in the query. Defaluts to the origin date of CCM.
+#'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
 #'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
 #' @param columns Character scalar or character vector. Names the columns to

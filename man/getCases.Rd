@@ -18,7 +18,7 @@ results to confirmed cases? Returns confirmed and probable cases
 by default.}
 
 \item{from}{Character scalar. Identifies the start of the date range
-to include in the query. Defaluts to the origin date of CCM.}
+to include in the query. Defaults to the origin date of CCM.}
 
 \item{to}{Character scalar. Identifies the end of the date range
 to include in the query. Defaults to \code{Sys.Date()} (i.e. today's date).}

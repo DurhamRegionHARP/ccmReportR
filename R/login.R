@@ -1,4 +1,4 @@
-#' Obtain an access token to authroize requests
+#' Obtain an access token to authorize requests
 #'
 #' This function implements the OAuth2.0 device grant flow
 #' see <https://tools.ietf.org/html/rfc6749#section-1.3.1>

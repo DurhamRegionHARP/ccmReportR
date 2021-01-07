@@ -1,4 +1,4 @@
-#' Helper function for buliding date strings
+#' Helper function for building date strings
 #'
 #' `makeTimestame()` generates ISO-8601 formatted
 #'   date strings in UTC. This is the format required
@@ -8,7 +8,7 @@
 #'   which the function will use to create the formatted
 #'   datetime.
 #' @returns character scalar. An ISO-8601 formatted date
-#'   in the UTC timezome suitable for use in CCM queries.
+#'   in the UTC timezone suitable for use in CCM queries.
 
 makeTimestamp <- function(dateString) {
   # We need to work with datetime objects

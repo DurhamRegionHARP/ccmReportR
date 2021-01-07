@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeTimestamp.R
 \name{makeTimestamp}
 \alias{makeTimestamp}
-\title{Helper function for buliding date strings}
+\title{Helper function for building date strings}
 \usage{
 makeTimestamp(dateString)
 }
@@ -13,7 +13,7 @@ datetime.}
 }
 \value{
 character scalar. An ISO-8601 formatted date
-in the UTC timezome suitable for use in CCM queries.
+in the UTC timezone suitable for use in CCM queries.
 }
 \description{
 \code{makeTimestame()} generates ISO-8601 formatted
