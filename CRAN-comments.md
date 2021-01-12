@@ -1,3 +1,9 @@
+# Resubmission
+This is a resubmission. In this version I have:
+1. Used single-quotes around the API name in the title and description.
+2. Added a web reference for the API to the description of the DESCRIPTION file.
+3. Changed `print()` and `cat()` functions to `message()`, `warning()`, and `stop()`.
+
 # Release Summary
 ## Test environments
 1. Local machine:

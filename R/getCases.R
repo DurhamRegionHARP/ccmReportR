@@ -45,7 +45,7 @@ getCases <- function(
   # Translate each option to language Salesforce expects
   statements <- list()
   if (from > to) {
-    stop('Arguement `from` must preceed arguement `to`.\n')
+    stop('Arguement `from` must preceed arguement `to`.\n', call. = FALSE)
   }
   statements$dateRange <- paste(
     "CCM_ReportedDate__c>=",
@@ -68,7 +68,7 @@ getCases <- function(
       sep = ''
     )
   } else {
-    warning('No health unit specified. This may return a lot of results!\n')
+    warning('No health unit specified. This may return a lot of results!\n', call. = FALSE)
   }
   # Build the WHERE clause for the query
   for (statement in 1:length(statements)) {
@@ -108,7 +108,7 @@ getCases <- function(
   # Parse the results
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
-    cat('The query was rejected due to a syntax error.\n')
+    stop('The query was rejected due to a syntax error.\n', call. = FALSE)
   } else {
     return(data$records)
   }

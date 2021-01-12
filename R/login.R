@@ -19,7 +19,7 @@ login <- function() {
     encode = 'form'
   )
   response <- jsonlite::fromJSON(httr::content(res, 'text'))
-  cat(
+  message(
     paste(
       'Open a browser and login at: ',
       response$verification_uri,
@@ -46,7 +46,7 @@ login <- function() {
     )
     tokenResponse <- httr::content(resp)
   }
-  cat('Login successful!\n')
+  message('Login successful!')
   # Save the access token in the OS key ring
   keyring::key_set_with_value(
     'CCM',

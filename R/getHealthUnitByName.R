@@ -28,7 +28,8 @@ getHealthUnitByName <- function(healthUnitName) {
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if (!data$totalSize) {
     stop(
-      paste('There is no health unit with name', healthUnitName, '\n', sep = '')
+      paste('There is no health unit with name', healthUnitName, '\n', sep = ''),
+      call. = FALSE
     )
   }
   return(data$records$Id)
