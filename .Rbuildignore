@@ -2,3 +2,4 @@
 ^.editorconfig$
 ^.travis.yml$
 ^CRAN-comments.md$
+^CRAN-RELEASE$
