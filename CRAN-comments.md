@@ -1,4 +1,8 @@
-# Resubmission
+# Resubmission 2
+This is a resubmission. In this version I have:
+1. Fixed errors in the examples (man/getCases.Rd)
+   
+# Resubmission 1
 This is a resubmission. In this version I have:
 1. Used single-quotes around the API name in the title and description.
 2. Added a web reference for the API to the description of the DESCRIPTION file.
