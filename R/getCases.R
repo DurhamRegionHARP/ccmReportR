@@ -22,13 +22,13 @@
 #' Get all confirmed cases for Waterloo Region
 #' cases <- getCases(
 #'   confirmedOnly = TRUE,
-#'   healthUnit = 'Waterloo'
+#'   healthUnit = 'Durham Region Health Department'
 #' )
-#' Specify the data to return. See ...
+#' Specify the data to return.
 #' cases <- getCases(
-#'   columns = c("Id", "CCM_ReportedDate__c", "CCM_EpisodeDate__c", "CCM_Episode_Date_Type__c")
+#'   columns = c("Id", "CCM_ReportedDate__c", "CCM_Episode_Date__c", "CCM_Episode_Date_Type__c")
 #' )
-#' Limit the data to a time period
+#' Limit the data to a specific time period.
 #' cases <- getCases(
 #'   from = "2020-10-12",
 #'   to = "2020-10-17"
@@ -58,7 +58,7 @@ getCases <- function(
   if (confirmedOnly) {
     statements$classification <- "CCM_Classification__c='CONFIRMED'"
   } else {
-    statements$classification <- "CCM_Classification__c+includes+('CONFIRMED','PROBABLE')"
+    statements$classification <- "(CCM_Classification__c='CONFIRMED'+OR+CCM_Classification__c='PROBABLE')"
   }
   if (!is.null(healthUnit)) {
     statements$phu <- paste(
