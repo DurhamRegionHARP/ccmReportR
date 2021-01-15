@@ -23,7 +23,7 @@ library(ccmReportR)
 # Start the login process
 login()
 # You'll be prompted to visit a URL to complete the process
-Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/connect?user_code=25XPRH6C
+Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/connect?user_code=25XPR
 ```
 
 After completing the login process in a web browser, you should see `Login successful!` when you return to your R terminal.
@@ -34,7 +34,7 @@ Use the `getCases()` function to get a `list()` of cases from CCM. Typically, th
 ```r
 # *N.B.* Health unit names in CCM follow a specific spelling.
 myCases <- getCases(
-    healthUnit = 'Simcoe Muskoka',
+    healthUnit = 'Simcoe Muskoka District Health Unit',
     columns = c('Id', 'CCM_ReportedDate__c'),
     from = "2020-10-12",
     to = "2020-10-15 23:59:59",
