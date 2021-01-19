@@ -1,3 +1,6 @@
+branches:
+    only:
+        - main
 language: r
 os:
     - linux
