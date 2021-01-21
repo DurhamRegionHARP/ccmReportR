@@ -11,7 +11,7 @@
 getHealthUnitByName <- function(healthUnitName) {
   resp <- httr::GET(
     url = paste(
-      'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q=',
+      'https://mohcontacttracing.my.salesforce.com/services/data/v50.0/query/?q=',
       "SELECT+Id+FROM+PHU_Stage_Table__c+WHERE+Name='",
       gsub(' ', '+', healthUnitName),
       "'",

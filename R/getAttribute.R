@@ -34,7 +34,7 @@ getAttribute <- function(caseId, optionsList) {
     whereClause,
     sep = ''
   )
-  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
+  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v50.0/query/?q='
   resp <- httr::GET(
     url = paste(resource_uri, query, sep=''),
     httr::add_headers(Authorization = paste('Bearer', keyring::key_get('CCM', 'AccessToken')))

@@ -92,7 +92,7 @@ getCases <- function(
     sep = '+'
   )
   # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_what_is_rest_api.htm
-  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
+  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v50.0/query/?q='
   # Post the query to Salesforce
   resp <- httr::GET(
     url = paste(resource_uri, query, sep = ''),
