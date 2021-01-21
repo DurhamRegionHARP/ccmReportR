@@ -4,18 +4,18 @@
 #' a case. the parameter `optionsList` specifies the
 #' columns to return.
 #'
-#' @param caseId character scalar. Names the case to
+#' @param Id character scalar. Names the record to
 #'   obtain information about.
 #' @param optionsList list object. Controls the behaviour
 #'  of the query, including the filter for the query, and
 #'  data to return.
-#' @returns If the query succeeds, a `list()` containing data
-#'  for the specified `caseId`. Otherwise, a `list()` of
+#' @returns If the query succeeds, a `data.frame` containing data
+#'  for the specified `Id`. Otherwise, a `data.frame` of
 #'  `NA` values.
 
-getAttribute <- function(caseId, optionsList) {
+getAttribute <- function(Id, optionsList) {
   # Outbreaks require both case Id and outbreak Id in the WHERE clause
-  whereClause <- paste(optionsList$columns[[2]], "='", caseId, "'", sep = '')
+  whereClause <- paste(optionsList$columns[[2]], "='", Id, "'", sep = '')
   if (optionsList$name == 'Outbreaks') {
     whereClause <- paste(
       whereClause,
@@ -52,7 +52,7 @@ getAttribute <- function(caseId, optionsList) {
     for (index in 1:length(optionsList$columns)) {
       attribute[optionsList$columns[[index]]] <- NA
     }
-    attribute[[2]] <- caseId
+    attribute[[2]] <- Id
   } else {
     for (index in 1:length(data$records)) {
       if (!typeof(data$records[[index]]) == 'list') {
