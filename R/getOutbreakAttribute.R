@@ -49,6 +49,19 @@ getOutbreakAttribute <- function(attribute, outbreak) {
         "CCM_Date_Time_Departed__c",
         "PHU_Exposure__r.Name"
       )
+    ),
+    investigations = list(
+      table = "Case",
+      name = "Investigations",
+      columns = c(
+        "Id",
+        "CCM_Investigation_Outbreak__c",
+        "CaseNumber",
+        "RecordType.Name",
+        "Status",
+        "CCM_Classification__c",
+        "CCM_New_Responsible_PHU__r.Name"
+      )
     )
   )
   # Check correct attribute name
@@ -58,7 +71,7 @@ getOutbreakAttribute <- function(attribute, outbreak) {
       call. = FALSE
     )
   }
-  # Map through `cases` and return `attribute` data
+  # Map through `outbreaks` and return `attribute` data
   data <- purrr::map_dfr(outbreak, function(el) {
     getAttribute(el, fnOptions[[attribute]])
   })
