@@ -23,7 +23,7 @@ getOutbreakAttribute <- function(attribute, outbreak) {
   }
   # Set function options
   fnOptions <- list(
-    location = list(
+    locations = list(
       table = "Location_Outbreak__c",
       name = "Location",
       columns = c(
@@ -37,16 +37,17 @@ getOutbreakAttribute <- function(attribute, outbreak) {
       )
     ),
     exposures = list(
-      table = "Location_Outbreak__c",
-      name = "Location",
+      table = "CCM_Exposure__c",
+      name = "Exposure",
       columns = c(
         "Id",
-        "MD_Outbreak__c",
-        "MD_Location__r.Name",
-        "MD_Location__r.CCM_Location_Type__c",
-        "MD_Location__r.CCM_Street__c",
-        "MD_Location__r.CCM_City__c",
-        "MD_Location__r.CCM_Postal_Code__c"
+        "CCM_Exposure_Outbreak__c",
+        "Name",
+        "CCM_Location__r.Name",
+        "Exposure_Setting_Type__c",
+        "CCM_Date_Time_Arrived__c",
+        "CCM_Date_Time_Departed__c",
+        "PHU_Exposure__r.Name"
       )
     )
   )
