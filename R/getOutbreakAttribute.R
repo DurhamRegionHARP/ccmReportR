@@ -8,7 +8,10 @@
 #' @param attribute character scalar. Names the CCM object to
 #'   obtain related information about a case. One of the
 #'   currently supported objects:
-#' @param outbreak character scalar or vector. Names the CCM Case Id
+#'   1. `exposures`
+#'   2. `investigations`
+#'   3. `locations`
+#' @param outbreak character scalar or vector. Names the Outbreak Id
 #'   to use when obtaining information.
 #' @returns a `data.frame` of information related to an Outbreak.
 #' @seealso [getAttribute()] for information on how the CCM

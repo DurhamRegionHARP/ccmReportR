@@ -1,21 +1,21 @@
 #' Execute a SOQL query against the Exposure object
 #'
-#' `getExposures()` returns a `list()` of data from the CCM Exposure object.
+#' `getExposures()` returns a `data.frame` of data from the CCM Exposure object.
 #' The Exposure object maps to Exposures on the client-side.
 #'
 #' @param type Character vector or scalar. Names the exposure type used
-#'  to filter the query. Defaults to all exposure types. One or more of:
-#'  1. `Community`
-#'  2. `Congregate Living`
-#'  3. `Household`
-#'  4. `Institutional`
-#'  5. `Travel`
+#'   to filter the query. Defaults to all exposure types. One or more of:
+#'   1. `Community`
+#'   2. `Congregate Living`
+#'   3. `Household`
+#'   4. `Institutional`
+#'   5. `Travel`
 #' @param from Character scalar. Identifies the start of the date range
 #'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
 #'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
 #' @param columns Character scalar or character vector. Names the columns to
-#'   return from the exposure object. Defaults to `Id`
+#'   return from the exposure object. Defaults to `Id`.
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
 #'   used to filter the query. `getExposures()` filters on Exposure PHU. Defaults
 #'   to NULL (i.e. no health unit filter).
@@ -23,19 +23,19 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' Get all confirmed exposures for Waterloo Region
-#' exposures <- getexposures(
-#'   confirmedOnly = TRUE,
+#' Get all community exposures for Durham
+#' exposures <- getExposures(
+#'   type = 'Community',
 #'   healthUnit = 'Durham Region Health Department'
 #' )
 #' Specify the data to return.
-#' exposures <- getexposures(
-#'   columns = c("Id", "CCM_ReportedDate__c", "CCM_Episode_Date__c", "CCM_Episode_Date_Type__c")
+#' exposures <- getExposures(
+#'   columns = c("Id", "Name", "CCM_Exposure_Setting__c")
 #' )
 #' Limit the data to a specific time period.
-#' exposures <- getexposures(
-#'   from = "2020-10-12",
-#'   to = "2020-10-17"
+#' exposures <- getExposures(
+#'   from = "2020-12-12",
+#'   to = "2020-12-17"
 #' )
 #' }
 

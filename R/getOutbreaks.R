@@ -1,5 +1,42 @@
-#' Execute an SOQL query against the Outbreak object
+#' Execute a SOQL query against the Outbreak object
 #'
+#' `getOutbreaks()` returns a `data.frame` of data from the CCM Exposure object.
+#' The Exposure object maps to Outbreaks on the client-side.
+#'
+#' @param confirmedOnly Logical scalar. Should the query limit
+#'   results to confirmed outbreaks? Returns confirmed and suspect outbreaks
+#'   by default.
+#' @param openOnly Logical scalar. Should the query limit
+#'   results to open outbreaks? Returns open and closed outbreaks
+#'   by default.
+#' @param from Character scalar. Identifies the start of the date range
+#'   to include in the query. Defaults to the origin date of CCM.
+#' @param to Character scalar. Identifies the end of the date range
+#'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
+#' @param columns Character scalar or character vector. Names the columns to
+#'   return from the exposure object. Defaults to `Id`.
+#' @param healthUnit Character vector or scalar. Names the Public Health Unit
+#'   used to filter the query. `getOutbreaks()` filters on Exposure PHU. Defaults
+#'   to NULL (i.e. no health unit filter).
+#' @return If the query succeeds, a `data.frame` containing `columns`.
+#' @export
+#' @examples
+#' \dontrun{
+#' Get all open outbreaks for Durham
+#' outbreaks <- getOutbreaks(
+#'   confirmedOnly = FALSE,
+#'   healthUnit = 'Durham Region Health Department'
+#' )
+#' Specify the data to return.
+#' outbreaks <- getOutbreaks(
+#'   columns = c("Id", "Name", "CCM_SFDC_Outbreak_Number__c")
+#' )
+#' Limit the data to a specific time period.
+#' outbreaks <- getOutbreaks(
+#'   from = "2021-01-01",
+#'   to = "2020-01-17"
+#' )
+#' }'
 
 getOutbreaks <- function(
   confirmedOnly = TRUE,
@@ -7,7 +44,7 @@ getOutbreaks <- function(
   healthUnit = NULL,
   from = "1990-01-01",
   to = as.character(Sys.Date()),
-  columns = "CCM_SFDC_Outbreak_Number__c"
+  columns = "Id"
 ) {
     # Translate each option to language Salesforce expects
   statements <- list()
