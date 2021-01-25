@@ -1,6 +1,6 @@
 #' Execute a SOQL query against the Exposure object
 #'
-#' `getExposures()` returns a `data.frame` of data from the CCM Exposure object.
+#' `getExposures()` returns a user-defined data from the CCM Exposure object.
 #' The Exposure object maps to Exposures on the client-side.
 #'
 #' @param type Character vector or scalar. Names the exposure type used
@@ -19,7 +19,7 @@
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
 #'   used to filter the query. `getExposures()` filters on Exposure PHU. Defaults
 #'   to NULL (i.e. no health unit filter).
-#' @return If the query succeeds, a `data.frame` containing `columns`.
+#' @return If the query succeeds, a `tibble` containing `columns`.
 #' @export
 #' @examples
 #' \dontrun{
@@ -130,6 +130,6 @@ getExposures <- function(
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
   } else {
-    return(data$records)
+    return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
   }
 }
