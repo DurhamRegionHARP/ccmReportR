@@ -1,7 +1,7 @@
-#' Execute a SOQL query against the Outbreak object
+#' Execute a SOQL query against the Outbreak object.
 #'
-#' `getOutbreaks()` returns a `data.frame` of data from the CCM Exposure object.
-#' The Exposure object maps to Outbreaks on the client-side.
+#' `getOutbreaks()` returns user-defined data from the CCM Outbreak object.
+#' The Outbreak object maps to Outbreaks on the client-side.
 #'
 #' @param confirmedOnly Logical scalar. Should the query limit
 #'   results to confirmed outbreaks? Returns confirmed and suspect outbreaks
@@ -14,15 +14,15 @@
 #' @param to Character scalar. Identifies the end of the date range
 #'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
 #' @param columns Character scalar or character vector. Names the columns to
-#'   return from the exposure object. Defaults to `Id`.
+#'   return from the Outbreak object. Defaults to `Id`.
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
-#'   used to filter the query. `getOutbreaks()` filters on Exposure PHU. Defaults
-#'   to NULL (i.e. no health unit filter).
-#' @return If the query succeeds, a `data.frame` containing `columns`.
+#'   used to filter the query. `getOutbreaks()` filters on Primary Health Unit.
+#'   Defaults to NULL (i.e. no health unit filter).
+#' @return If the query succeeds, a `tibble` containing `columns`.
 #' @export
 #' @examples
 #' \dontrun{
-#' Get all open outbreaks for Durham
+#' Get all open outbreaks for Durham.
 #' outbreaks <- getOutbreaks(
 #'   confirmedOnly = FALSE,
 #'   healthUnit = 'Durham Region Health Department'
@@ -119,6 +119,6 @@ getOutbreaks <- function(
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
   } else {
-    return(data$records)
+    return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
   }
 }

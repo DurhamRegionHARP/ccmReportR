@@ -1,21 +1,21 @@
-#' Get attributes related to an outbreak
+#' Get attributes related to an outbreak.
 #'
 #' `getOutbreakAttribute()` specifies the object used to
 #' get related information about an outbreak. This function
 #' wraps `getAttribute()` to allow iteration over multiple
 #' outbreaks.
 #'
-#' @param attribute character scalar. Names the CCM object to
+#' @param attribute Character scalar. Names the CCM object to
 #'   obtain related information about a case. One of the
 #'   currently supported objects:
 #'   1. `exposures`
 #'   2. `investigations`
 #'   3. `locations`
-#' @param outbreak character scalar or vector. Names the Outbreak Id
+#' @param outbreak Character scalar or vector. Names the Outbreak Id
 #'   to use when obtaining information.
-#' @returns a `data.frame` of information related to an Outbreak.
+#' @returns A `tibble` of information related to an Outbreak.
 #' @seealso [getAttribute()] for information on how the CCM
-#'   query is executed. [getOutbreaks()] for obtaining outbreak Ids
+#'   query is executed. [getOutbreaks()] for obtaining Outbreak Ids
 #'   required for this function.
 #' @export
 
