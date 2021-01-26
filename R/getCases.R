@@ -1,6 +1,6 @@
-#' Execute a SOQL query against the Case object
+#' Execute a SOQL query against the Case object.
 #'
-#' `getCases()` returns a `data.frame` of data from the CCM Case object.
+#' `getCases()` returns a `tibble` of data from the CCM Case object.
 #' The Case object maps to Investigations on the client-side.
 #'
 #' @param confirmedOnly Logical scalar. Should the query limit
@@ -15,7 +15,7 @@
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
 #'   used to filter the query. `getCases()` filters on Permanent PHU. Defaults
 #'   to NULL (i.e. no health unit filter).
-#' @return If the query succeeds, a `data.frame` containing `columns`.
+#' @return If the query succeeds, a `tibble` containing `columns`.
 #' @export
 #' @examples
 #' \dontrun{

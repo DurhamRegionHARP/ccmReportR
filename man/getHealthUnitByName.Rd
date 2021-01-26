@@ -2,17 +2,17 @@
 % Please edit documentation in R/getHealthUnitByName.R
 \name{getHealthUnitByName}
 \alias{getHealthUnitByName}
-\title{Look up a Health Unit's Id by name}
+\title{Retrieve a Health Unit's Id by name}
 \usage{
 getHealthUnitByName(healthUnitName)
 }
 \arguments{
-\item{healthUnitName}{character scalar or vector. Names the
+\item{healthUnitName}{Character scalar or vector. Names the
 health unit to use when searching for an Id.}
 }
 \value{
 If the query succeeds, a character scalar or vector
-of health unit Id's. Otherwise an error is returned.
+of health unit Id's. Otherwise, an error is returned.
 }
 \description{
 \code{getHealthUnitByName()} searches the PHU_Stage_Table__c object

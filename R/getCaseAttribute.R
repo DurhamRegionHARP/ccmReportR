@@ -1,11 +1,11 @@
-#' Get attributes related to a case
+#' Get attributes related to a case.
 #'
 #' `getCaseAttribute()` specifies the object used to
 #' get related information about a case. This function
 #' wraps `getAttribute()` to allow iteration over multiple
-#' cases. See `getAttribute()`
+#' cases. See `getAttribute()`.
 #'
-#' @param attribute character scalar. Names the CCM object to
+#' @param attribute Character scalar. Names the CCM object to
 #'   obtain related information about a case. One of the
 #'   currently supported objects:
 #'   1. `exposures`: Exposures
@@ -14,9 +14,9 @@
 #'   4. `outbreaks`: Outbreaks
 #'   5. `riskFactor`: Risk Factors
 #'   6. `symptoms`: Symptoms
-#' @param case character scalar or vector. Names the CCM Case Id
+#' @param case Character scalar or vector. Names the CCM Case Id
 #'   to use when obtaining information.
-#' @returns a `data.frame` of information related to a case.
+#' @returns a `tibble` of information related to a case.
 #' @seealso [getAttribute()] for information on how the CCM
 #'   query is executed. [getCases()] for obtaining Case Id's
 #'   required for this function.
@@ -86,7 +86,7 @@ getCaseAttribute <- function(attribute, case) {
         'Exposure__r.Name',
         'Exposure__r.Exposure_Setting_Type__c',
         'Beginning_Date_of_Exposure_Contact__c',
-        'CCM_IsPrimary_or_Indexed_Investigation__c'
+        'End_Date_of_Exposure_Contact__c'
       )
     ),
     outbreaks = list(

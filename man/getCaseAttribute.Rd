@@ -2,12 +2,12 @@
 % Please edit documentation in R/getCaseAttribute.R
 \name{getCaseAttribute}
 \alias{getCaseAttribute}
-\title{Get attributes related to a case}
+\title{Get attributes related to a case.}
 \usage{
 getCaseAttribute(attribute, case)
 }
 \arguments{
-\item{attribute}{character scalar. Names the CCM object to
+\item{attribute}{Character scalar. Names the CCM object to
 obtain related information about a case. One of the
 currently supported objects:
 \enumerate{
@@ -19,17 +19,17 @@ currently supported objects:
 \item \code{symptoms}: Symptoms
 }}
 
-\item{case}{character scalar or vector. Names the CCM Case Id
+\item{case}{Character scalar or vector. Names the CCM Case Id
 to use when obtaining information.}
 }
 \value{
-a \code{data.frame} of information related to a case.
+a \code{tibble} of information related to a case.
 }
 \description{
 \code{getCaseAttribute()} specifies the object used to
 get related information about a case. This function
 wraps \code{getAttribute()} to allow iteration over multiple
-cases. See \code{getAttribute()}
+cases. See \code{getAttribute()}.
 }
 \seealso{
 \code{\link[=getAttribute]{getAttribute()}} for information on how the CCM

@@ -2,25 +2,25 @@
 % Please edit documentation in R/getAttribute.R
 \name{getAttribute}
 \alias{getAttribute}
-\title{Get data from CCM for a specified case}
+\title{Get data from CCM for a specified record.}
 \usage{
-getAttribute(caseId, optionsList)
+getAttribute(Id, optionsList)
 }
 \arguments{
-\item{caseId}{character scalar. Names the case to
+\item{Id}{Character scalar. Names the record to
 obtain information about.}
 
 \item{optionsList}{list object. Controls the behaviour
-of the query, including the filter for the query, and
+of the query including the filter for the query, and
 data to return.}
 }
 \value{
-If the query succeeds, a \code{list()} containing data
-for the specified \code{caseId}. Otherwise, a \code{list()} of
+If the query succeeds, a \code{tibble} containing data
+for the specified \code{Id}. Otherwise, a \code{tibble} of
 \code{NA} values.
 }
 \description{
 \code{getAttribute()} queries CCM for details about
-a case. the parameter \code{optionsList} specifies the
+a record. the parameter \code{optionsList} specifies the
 columns to return.
 }

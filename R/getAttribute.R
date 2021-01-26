@@ -1,16 +1,16 @@
-#' Get data from CCM for a specified case
+#' Get data from CCM for a specified record.
 #'
 #' `getAttribute()` queries CCM for details about
-#' a case. the parameter `optionsList` specifies the
+#' a record. the parameter `optionsList` specifies the
 #' columns to return.
 #'
-#' @param Id character scalar. Names the record to
+#' @param Id Character scalar. Names the record to
 #'   obtain information about.
 #' @param optionsList list object. Controls the behaviour
-#'  of the query, including the filter for the query, and
+#'  of the query including the filter for the query, and
 #'  data to return.
-#' @returns If the query succeeds, a `data.frame` containing data
-#'  for the specified `Id`. Otherwise, a `data.frame` of
+#' @returns If the query succeeds, a `tibble` containing data
+#'  for the specified `Id`. Otherwise, a `tibble` of
 #'  `NA` values.
 
 getAttribute <- function(Id, optionsList) {
