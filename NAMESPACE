@@ -2,4 +2,8 @@
 
 export(getCaseAttribute)
 export(getCases)
+export(getExposureAttribute)
+export(getExposures)
+export(getOutbreakAttribute)
+export(getOutbreaks)
 export(login)

@@ -1,68 +1,77 @@
-#' Execute a SOQL query against the Case object.
+#' Execute a SOQL query against the Outbreak object.
 #'
-#' `getCases()` returns a `tibble` of data from the CCM Case object.
-#' The Case object maps to Investigations on the client-side.
+#' `getOutbreaks()` returns user-defined data from the CCM Outbreak object.
+#' The Outbreak object maps to Outbreaks on the client-side.
 #'
 #' @param confirmedOnly Logical scalar. Should the query limit
-#'   results to confirmed cases? Returns confirmed and probable cases
+#'   results to confirmed outbreaks? Returns confirmed and suspect outbreaks
+#'   by default.
+#' @param openOnly Logical scalar. Should the query limit
+#'   results to open outbreaks? Returns open and closed outbreaks
 #'   by default.
 #' @param from Character scalar. Identifies the start of the date range
 #'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
 #'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
 #' @param columns Character scalar or character vector. Names the columns to
-#'   return from the Case object. Defaults to `Id`
+#'   return from the Outbreak object. Defaults to `Id`.
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
-#'   used to filter the query. `getCases()` filters on Permanent PHU. Defaults
-#'   to NULL (i.e. no health unit filter).
+#'   used to filter the query. `getOutbreaks()` filters on Primary Health Unit.
+#'   Defaults to NULL (i.e. no health unit filter).
 #' @return If the query succeeds, a `tibble` containing `columns`.
 #' @export
 #' @examples
 #' \dontrun{
-#' Get all confirmed cases for Waterloo Region
-#' cases <- getCases(
-#'   confirmedOnly = TRUE,
+#' Get all open outbreaks for Durham.
+#' outbreaks <- getOutbreaks(
+#'   confirmedOnly = FALSE,
 #'   healthUnit = 'Durham Region Health Department'
 #' )
 #' Specify the data to return.
-#' cases <- getCases(
-#'   columns = c("Id", "CCM_ReportedDate__c", "CCM_Episode_Date__c", "CCM_Episode_Date_Type__c")
+#' outbreaks <- getOutbreaks(
+#'   columns = c("Id", "Name", "CCM_SFDC_Outbreak_Number__c")
 #' )
 #' Limit the data to a specific time period.
-#' cases <- getCases(
-#'   from = "2020-10-12",
-#'   to = "2020-10-17"
+#' outbreaks <- getOutbreaks(
+#'   from = "2021-01-01",
+#'   to = "2020-01-17"
 #' )
-#' }
+#' }'
 
-getCases <- function(
-    confirmedOnly = FALSE,
-    from = "1990-01-01",
-    to = as.character(Sys.Date()),
-    columns = 'Id',
-    healthUnit = NULL
-  ) {
-  # Translate each option to language Salesforce expects
+getOutbreaks <- function(
+  confirmedOnly = TRUE,
+  openOnly = TRUE,
+  healthUnit = NULL,
+  from = "1990-01-01",
+  to = as.character(Sys.Date()),
+  columns = "Id"
+) {
+    # Translate each option to language Salesforce expects
   statements <- list()
   if (from > to) {
     stop('Arguement `from` must preceed arguement `to`.\n', call. = FALSE)
   }
   statements$dateRange <- paste(
-    "CCM_ReportedDate__c>=",
-    makeTimestamp(from),
+    "CCM_Reported_Date__c>=",
+    from,
     "+AND+",
-    "CCM_ReportedDate__c<=",
-    makeTimestamp(to),
+    "CCM_Reported_Date__c<=",
+    to,
     sep = ''
   )
   if (confirmedOnly) {
-    statements$classification <- "CCM_Classification__c='CONFIRMED'"
+    statements$classification <- "CCM_Outbreak_Classification_NEW__c='Confirmed'"
   } else {
-    statements$classification <- "(CCM_Classification__c='CONFIRMED'+OR+CCM_Classification__c='PROBABLE')"
+    statements$classification <- "(CCM_Outbreak_Classification_NEW__c='Confirmed'+OR+CCM_Outbreak_Classification_NEW__c='Suspect')"
+  }
+  if (openOnly) {
+    statements$classification <- "CCM_Outbreak_Status__c='Open'"
+  } else {
+    statements$classification <- "(CCM_Outbreak_Status__c='Open'+OR+CCM_Outbreak_Status__c='Close')"
   }
   if (!is.null(healthUnit)) {
     statements$phu <- paste(
-      "CCM_New_Diagnosing_PHU__c='",
+      "CCM_PHU_Stage_Table__c='",
       getHealthUnitByName(healthUnit),
       "'",
       sep = ''
@@ -86,7 +95,7 @@ getCases <- function(
   query <- paste(
     "SELECT",
     paste(columns, collapse = ','),
-    "FROM+Case",
+    "FROM+Outbreak__c",
     "WHERE",
     whereClause,
     sep = '+'
@@ -101,7 +110,7 @@ getCases <- function(
   httr::stop_for_status(
     resp,
     paste(
-      'get cases!\n',
+      'get outbreaks!\n',
       jsonlite::fromJSON(httr::content(resp, 'text'))$message
     )
   )
@@ -110,6 +119,6 @@ getCases <- function(
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
   } else {
-    return(data$records)
+    return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
   }
 }

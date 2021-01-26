@@ -1,21 +1,21 @@
-#' Get data from CCM for a specified case
+#' Get data from CCM for a specified record.
 #'
 #' `getAttribute()` queries CCM for details about
-#' a case. the parameter `optionsList` specifies the
+#' a record. the parameter `optionsList` specifies the
 #' columns to return.
 #'
-#' @param caseId character scalar. Names the case to
+#' @param Id Character scalar. Names the record to
 #'   obtain information about.
 #' @param optionsList list object. Controls the behaviour
-#'  of the query, including the filter for the query, and
+#'  of the query including the filter for the query, and
 #'  data to return.
-#' @returns If the query succeeds, a `list()` containing data
-#'  for the specified `caseId`. Otherwise, a `list()` of
+#' @returns If the query succeeds, a `tibble` containing data
+#'  for the specified `Id`. Otherwise, a `tibble` of
 #'  `NA` values.
 
-getAttribute <- function(caseId, optionsList) {
+getAttribute <- function(Id, optionsList) {
   # Outbreaks require both case Id and outbreak Id in the WHERE clause
-  whereClause <- paste(optionsList$columns[[2]], "='", caseId, "'", sep = '')
+  whereClause <- paste(optionsList$columns[[2]], "='", Id, "'", sep = '')
   if (optionsList$name == 'Outbreaks') {
     whereClause <- paste(
       whereClause,
@@ -34,7 +34,7 @@ getAttribute <- function(caseId, optionsList) {
     whereClause,
     sep = ''
   )
-  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q='
+  resource_uri <- 'https://mohcontacttracing.my.salesforce.com/services/data/v50.0/query/?q='
   resp <- httr::GET(
     url = paste(resource_uri, query, sep=''),
     httr::add_headers(Authorization = paste('Bearer', keyring::key_get('CCM', 'AccessToken')))
@@ -52,7 +52,7 @@ getAttribute <- function(caseId, optionsList) {
     for (index in 1:length(optionsList$columns)) {
       attribute[optionsList$columns[[index]]] <- NA
     }
-    attribute[[2]] <- caseId
+    attribute[[2]] <- Id
   } else {
     for (index in 1:length(data$records)) {
       if (!typeof(data$records[[index]]) == 'list') {

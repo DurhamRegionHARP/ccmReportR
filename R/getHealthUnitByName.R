@@ -1,17 +1,17 @@
-#' Look up a Health Unit's Id by name
+#' Retrieve a Health Unit's Id by name
 #'
 #' `getHealthUnitByName()` searches the PHU_Stage_Table__c object
 #' and returns the Id for the specified health unit.
 #'
-#' @param healthUnitName character scalar or vector. Names the
+#' @param healthUnitName Character scalar or vector. Names the
 #'   health unit to use when searching for an Id.
 #' @returns If the query succeeds, a character scalar or vector
-#'   of health unit Id's. Otherwise an error is returned.
+#'   of health unit Id's. Otherwise, an error is returned.
 
 getHealthUnitByName <- function(healthUnitName) {
   resp <- httr::GET(
     url = paste(
-      'https://mohcontacttracing.my.salesforce.com/services/data/v49.0/query/?q=',
+      'https://mohcontacttracing.my.salesforce.com/services/data/v50.0/query/?q=',
       "SELECT+Id+FROM+PHU_Stage_Table__c+WHERE+Name='",
       gsub(' ', '+', healthUnitName),
       "'",

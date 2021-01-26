@@ -2,7 +2,7 @@
 % Please edit documentation in R/getCases.R
 \name{getCases}
 \alias{getCases}
-\title{Execute a SOQL query against the Case object}
+\title{Execute a SOQL query against the Case object.}
 \usage{
 getCases(
   confirmedOnly = FALSE,
@@ -31,10 +31,10 @@ used to filter the query. \code{getCases()} filters on Permanent PHU. Defaults
 to NULL (i.e. no health unit filter).}
 }
 \value{
-If the query succeeds, a \code{list()} containing \code{columns}.
+If the query succeeds, a \code{tibble} containing \code{columns}.
 }
 \description{
-\code{getCases()} returns a \code{list()} of data from the CCM Case object.
+\code{getCases()} returns a \code{tibble} of data from the CCM Case object.
 The Case object maps to Investigations on the client-side.
 }
 \examples{

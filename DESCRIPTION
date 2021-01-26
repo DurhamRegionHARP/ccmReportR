@@ -1,13 +1,15 @@
 Package: ccmReportR
 Title: Wraps 'CCM' with Utility Functions
-Version: 0.0.2
+Version: 0.0.3
 Authors@R:
     person(given = "James",
            family = "Lane",
            role = c("aut", "cre"),
            email = "lanejames35@gmail.com")
 Description: Provides a set of functions to perform queries against the 'CCM' API <https://mohcontacttracing.my.salesforce.com>.
+BugReports: https://github.com/DurhamRegionHARP/ccmReportR/issues
 License: MIT + file LICENSE
+URL: https://github.com/DurhamRegionHARP/ccmReportR
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -18,4 +20,5 @@ Imports:
     jsonlite (>= 1.7.1),
     keyring (>= 1.1.0),
     lubridate (>= 1.7.9),
-    purrr (>= 0.3.4)
+    purrr (>= 0.3.4),
+    tibble (>= 3.0.5)

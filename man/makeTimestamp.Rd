@@ -2,17 +2,17 @@
 % Please edit documentation in R/makeTimestamp.R
 \name{makeTimestamp}
 \alias{makeTimestamp}
-\title{Helper function for building date strings}
+\title{Helper function for building ISO-8601 dates.}
 \usage{
 makeTimestamp(dateString)
 }
 \arguments{
-\item{dateString}{character scalar. Names the date
+\item{dateString}{Character scalar. Names the date
 which the function will use to create the formatted
 datetime.}
 }
 \value{
-character scalar. An ISO-8601 formatted date
+Character scalar. An ISO-8601 formatted date
 in the UTC timezone suitable for use in CCM queries.
 }
 \description{
