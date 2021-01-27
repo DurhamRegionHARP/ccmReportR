@@ -35,8 +35,8 @@ Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/c
 
 After completing the login process in a web browser, you should see `Login successful!` when you return to your R terminal.
 
-### Get Cases
-Use the `getCases()` function to get a `list()` of cases from CCM. Typically, this is the starting point for most applications. Function parameters allow you to control how cases are identified. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
+### Get Data
+Use `getCases`, `getExposures`, and `getOutbreaks` to get a `tibble` of data from CCM. Typically, this is the starting point for most applications. Function parameters allow you to control how data are filtered and what fields are returned. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
 
 ```r
 # *N.B.* Health unit names in CCM follow a specific spelling.
@@ -55,14 +55,22 @@ str(myCases)
 # $ Id                 : chr  "5005X0000028zhGQAQ" "5005X0000029173QAA" "5005X00000292dEQAQ" "5005X00000293QJQAY" ...
 # $ CCM_ReportedDate__c: chr  "2020-10-12T12:54:36.000+0000" "2020-10-12T15:43:31.000+0000" "2020-10-12T16:00:00.000+0000" # "2020-10-12T19:18:11.000+0000" ...
 ```
-### Case Attributes
-Use the `getCaseAttribute` function to get a `data.frame` of useful information related to a case. Currently supported objects include:
+### Attributes
+Use `getCaseAttribute`, `getExposureAttribute`, `getOutbreakAttribute` to get a `tibble` of related information. Currently supported attributes for cases include:
 - Exposures
 - Interventions
 - Lab Results
 - Outbreaks
 - Risk Factors
 - Symptoms
+
+For exposures:
+- Exposure investigations
+
+And for outbreaks:
+- Exposures
+- Investigations
+- Locations
 
 Continuing with our previous example, let's get the interventions related to our list of cases
 ```r
@@ -80,10 +88,7 @@ str(interventions)
 ```
 
 ## Road Map
-As this projects grows and matures, possible areas for improvement include:
-1. Outbreak information
-2. Exposure information
-3. Client information
+This project is actively seeking input on how to best serve the community. We want to hear from you! Please file a issue or start a discussion.
 
 ## Contributing
 This project is an open-source initiative and we welcome all contributions. Thank you to all contributors for your time and support!
