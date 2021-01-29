@@ -49,7 +49,7 @@ getExposures <- function(
   # Translate each option to language Salesforce expects
   statements <- list()
   if (from > to) {
-    stop('Arguement `from` must preceed arguement `to`.\n', call. = FALSE)
+    stop('Argument `from` must precede argument `to`.\n', call. = FALSE)
   }
   statements$dateRange <- paste(
     "CCM_Date_Time_Arrived__c>=",
