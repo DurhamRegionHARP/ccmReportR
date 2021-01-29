@@ -1,7 +1,7 @@
 # ccmReportR
 
 <!-- badges: start -->
-[![Build Status](https://travis-ci.com/DurhamRegionHARP/ccmReportR.svg?branch=main)](https://travis-ci.com/DurhamRegionHARP/ccmReportR)
+[![R-CMD-check](https://github.com/DurhamRegionHARP/ccmReportR/workflows/R-CMD-check/badge.svg)](https://github.com/DurhamRegionHARP/ccmReportR/actions)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ccmReportR)](https://cran.r-project.org/package=ccmReportR)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ccmReportR)](https://cran.r-project.org/package=ccmReportR)
 <!-- badges: end -->
