@@ -2,14 +2,14 @@
 % Please edit documentation in R/getOutbreaks.R
 \name{getOutbreaks}
 \alias{getOutbreaks}
-\title{Execute a SOQL query against the Outbreak object.}
+\title{Execute a SOQL query against the Outbreak object}
 \usage{
 getOutbreaks(
   confirmedOnly = TRUE,
   openOnly = TRUE,
   healthUnit = NULL,
   from = "1990-01-01",
-  to = as.character(Sys.Date()),
+  to = as.character(Sys.time()),
   columns = "Id"
 )
 }
@@ -30,7 +30,7 @@ Defaults to NULL (i.e. no health unit filter).}
 to include in the query. Defaults to the origin date of CCM.}
 
 \item{to}{Character scalar. Identifies the end of the date range
-to include in the query. Defaults to \code{Sys.Date()} (i.e. today's date).}
+to include in the query. Defaults to \code{Sys.time()} (i.e. today's date and time).}
 
 \item{columns}{Character scalar or character vector. Names the columns to
 return from the Outbreak object. Defaults to \code{Id}.}
@@ -41,4 +41,22 @@ If the query succeeds, a \code{tibble} containing \code{columns}.
 \description{
 \code{getOutbreaks()} returns user-defined data from the CCM Outbreak object.
 The Outbreak object maps to Outbreaks on the client-side.
+}
+\examples{
+\dontrun{
+Get all open outbreaks for Durham.
+outbreaks <- getOutbreaks(
+  confirmedOnly = FALSE,
+  healthUnit = 'Durham Region Health Department'
+)
+Specify the data to return.
+outbreaks <- getOutbreaks(
+  columns = c("Id", "Name", "CCM_SFDC_Outbreak_Number__c")
+)
+Limit the data to a specific time period.
+outbreaks <- getOutbreaks(
+  from = "2021-01-01",
+  to = "2020-01-17"
+)
+}
 }

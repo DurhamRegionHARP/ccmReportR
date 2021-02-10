@@ -1,4 +1,4 @@
-#' Get attributes related to a case.
+#' Get attributes related to a case
 #'
 #' `getCaseAttribute()` specifies the object used to
 #' get related information about a case. This function

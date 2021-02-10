@@ -2,7 +2,7 @@
 % Please edit documentation in R/getOutbreakAttribute.R
 \name{getOutbreakAttribute}
 \alias{getOutbreakAttribute}
-\title{Get attributes related to an outbreak.}
+\title{Get attributes related to an outbreak}
 \usage{
 getOutbreakAttribute(attribute, outbreak)
 }

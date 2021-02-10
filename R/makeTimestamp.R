@@ -1,4 +1,4 @@
-#' Helper function for building ISO-8601 dates.
+#' Helper function for building ISO-8601 dates
 #'
 #' `makeTimestame()` generates ISO-8601 formatted
 #'   date strings in UTC. This is the format required

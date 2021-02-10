@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeTimestamp.R
 \name{makeTimestamp}
 \alias{makeTimestamp}
-\title{Helper function for building ISO-8601 dates.}
+\title{Helper function for building ISO-8601 dates}
 \usage{
 makeTimestamp(dateString)
 }

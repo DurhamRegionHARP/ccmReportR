@@ -2,7 +2,7 @@
 % Please edit documentation in R/getCaseAttribute.R
 \name{getCaseAttribute}
 \alias{getCaseAttribute}
-\title{Get attributes related to a case.}
+\title{Get attributes related to a case}
 \usage{
 getCaseAttribute(attribute, case)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/getAttribute.R
 \name{getAttribute}
 \alias{getAttribute}
-\title{Get data from CCM for a specified record.}
+\title{Get data from CCM for a specified record}
 \usage{
 getAttribute(Id, optionsList)
 }

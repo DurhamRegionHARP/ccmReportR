@@ -7,7 +7,7 @@
 getExposures(
   type = NULL,
   from = "1990-01-01",
-  to = as.character(Sys.Date()),
+  to = as.character(Sys.time()),
   columns = "Id",
   healthUnit = NULL
 )
@@ -27,7 +27,7 @@ to filter the query. Defaults to all exposure types. One or more of:
 to include in the query. Defaults to the origin date of CCM.}
 
 \item{to}{Character scalar. Identifies the end of the date range
-to include in the query. Defaults to \code{Sys.Date()} (i.e. today's date).}
+to include in the query. Defaults to \code{Sys.time()} (i.e. today's date and time).}
 
 \item{columns}{Character scalar or character vector. Names the columns to
 return from the exposure object. Defaults to \code{Id}.}

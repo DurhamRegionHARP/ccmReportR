@@ -1,4 +1,4 @@
-#' Execute a SOQL query against the Outbreak object.
+#' Execute a SOQL query against the Outbreak object
 #'
 #' `getOutbreaks()` returns user-defined data from the CCM Outbreak object.
 #' The Outbreak object maps to Outbreaks on the client-side.
@@ -12,7 +12,7 @@
 #' @param from Character scalar. Identifies the start of the date range
 #'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
-#'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
+#'   to include in the query. Defaults to `Sys.time()` (i.e. today's date and time).
 #' @param columns Character scalar or character vector. Names the columns to
 #'   return from the Outbreak object. Defaults to `Id`.
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
@@ -36,7 +36,7 @@
 #'   from = "2021-01-01",
 #'   to = "2020-01-17"
 #' )
-#' }'
+#' }
 
 getOutbreaks <- function(
   confirmedOnly = TRUE,

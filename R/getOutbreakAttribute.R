@@ -1,4 +1,4 @@
-#' Get attributes related to an outbreak.
+#' Get attributes related to an outbreak
 #'
 #' `getOutbreakAttribute()` specifies the object used to
 #' get related information about an outbreak. This function

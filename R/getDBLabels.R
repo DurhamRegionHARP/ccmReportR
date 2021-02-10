@@ -1,4 +1,17 @@
-# Extract field labels from field description
+#' Helper function for building SOQL queries
+#'
+#' `getDBLabels()` retrieves the description of a specified
+#'   object in CCM then searches for field names using the
+#'   field label seen on the client-side.
+#'
+#' @param table Character scalar. Names the CCM object
+#'   which the function will use to search for field names.
+#' @param colNames Character vector. Contains a combination
+#'   field names and labels to search for in `table`.
+#' @returns Character vector. Field names suitable for use in
+#'   subsequent SOQL queries. Elements form `colNames` not found
+#'   in `table` are removed from the results.
+
 getDBLabels <- function(table, colNames) {
   resource_uri <- paste0(
     'https://mohcontacttracing.my.salesforce.com//services/data/v50.0/sobjects/',

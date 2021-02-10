@@ -1,4 +1,4 @@
-#' Get data from CCM for a specified record.
+#' Get data from CCM for a specified record
 #'
 #' `getAttribute()` queries CCM for details about
 #' a record. the parameter `optionsList` specifies the

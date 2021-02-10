@@ -1,4 +1,4 @@
-#' Execute a SOQL query against the Case object.
+#' Execute a SOQL query against the Case object
 #'
 #' `getCases()` returns a `tibble` of data from the CCM Case object.
 #' The Case object maps to Investigations on the client-side.
@@ -9,7 +9,7 @@
 #' @param from Character scalar. Identifies the start of the date range
 #'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
-#'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
+#'   to include in the query. Defaults to `Sys.time()` (i.e. today's date and time).
 #' @param columns Character scalar or character vector. Names the columns to
 #'   return from the Case object. Defaults to `Id`
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
