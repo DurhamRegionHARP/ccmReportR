@@ -37,8 +37,8 @@
 
 getCases <- function(
     confirmedOnly = FALSE,
-    from = "1990-01-01",
-    to = as.character(Sys.Date()),
+    from = '1990-01-01',
+    to = as.character(Sys.time()),
     columns = 'Id',
     healthUnit = NULL
   ) {
@@ -48,10 +48,10 @@ getCases <- function(
     stop('Argument `from` must precede argument `to`.\n', call. = FALSE)
   }
   statements$dateRange <- paste(
-    "CCM_ReportedDate__c>=",
+    'CCM_ReportedDate__c>=',
     makeTimestamp(from),
-    "+AND+",
-    "CCM_ReportedDate__c<=",
+    '+AND+',
+    'CCM_ReportedDate__c<=',
     makeTimestamp(to),
     sep = ''
   )
@@ -77,17 +77,17 @@ getCases <- function(
     } else {
       whereClause <- paste(
         whereClause,
-        "+AND+",
+        '+AND+',
         statements[[statement]],
         sep = ''
       )
     }
   }
   query <- paste(
-    "SELECT",
-    paste(columns, collapse = ','),
-    "FROM+Case",
-    "WHERE",
+    'SELECT',
+    paste(getDBLabels('Case', columns), collapse = ','),
+    'FROM+Case',
+    'WHERE',
     whereClause,
     sep = '+'
   )
@@ -109,7 +109,9 @@ getCases <- function(
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
-  } else {
-    return(data$records)
   }
+  if (data$totalSize == 0) {
+    return(tibble::as_tibble(data$records))
+  }
+  return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
 }
