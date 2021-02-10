@@ -42,7 +42,7 @@
 getExposures <- function(
     type = NULL,
     from = "1990-01-01",
-    to = as.character(Sys.Date()),
+    to = as.character(Sys.time()),
     columns = 'Id',
     healthUnit = NULL
   ) {
@@ -105,7 +105,7 @@ getExposures <- function(
   }
   query <- paste(
     "SELECT",
-    paste(columns, collapse = ','),
+    paste(getDBLabels('CCM_Exposure__c', columns), collapse = ','),
     "FROM+CCM_Exposure__c",
     "WHERE",
     whereClause,
@@ -129,7 +129,9 @@ getExposures <- function(
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
-  } else {
-    return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
   }
+  if (data$totalSize == 0) {
+    return(tibble::as_tibble(data$records))
+  }
+  return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
 }

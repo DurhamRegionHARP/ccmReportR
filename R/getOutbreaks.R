@@ -43,10 +43,10 @@ getOutbreaks <- function(
   openOnly = TRUE,
   healthUnit = NULL,
   from = "1990-01-01",
-  to = as.character(Sys.Date()),
+  to = as.character(Sys.time()),
   columns = "Id"
 ) {
-    # Translate each option to language Salesforce expects
+  # Translate each option to language Salesforce expects
   statements <- list()
   if (from > to) {
     stop('Argument `from` must precede argument `to`.\n', call. = FALSE)
@@ -94,7 +94,7 @@ getOutbreaks <- function(
   }
   query <- paste(
     "SELECT",
-    paste(columns, collapse = ','),
+    paste(getDBLabels('Outbreak__c', columns), collapse = ','),
     "FROM+Outbreak__c",
     "WHERE",
     whereClause,
@@ -118,7 +118,10 @@ getOutbreaks <- function(
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
   if ('MALFORMED_QUERY' %in% names(data)) {
     stop('The query was rejected due to a syntax error.\n', call. = FALSE)
-  } else {
-    return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
   }
+  if (data$totalSize == 0) {
+    return(tibble::as_tibble(data$records))
+  }
+  return(tibble::as_tibble(dplyr::select(data$records, !attributes)))
+
 }
