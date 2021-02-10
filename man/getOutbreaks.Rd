@@ -9,7 +9,7 @@ getOutbreaks(
   openOnly = TRUE,
   healthUnit = NULL,
   from = "1990-01-01",
-  to = as.character(Sys.time()),
+  to = as.character(Sys.Date()),
   columns = "Id"
 )
 }
@@ -30,7 +30,7 @@ Defaults to NULL (i.e. no health unit filter).}
 to include in the query. Defaults to the origin date of CCM.}
 
 \item{to}{Character scalar. Identifies the end of the date range
-to include in the query. Defaults to \code{Sys.time()} (i.e. today's date and time).}
+to include in the query. Defaults to \code{Sys.Date()} (i.e. today's date).}
 
 \item{columns}{Character scalar or character vector. Names the columns to
 return from the Outbreak object. Defaults to \code{Id}.}
