@@ -12,7 +12,7 @@
 #' @param from Character scalar. Identifies the start of the date range
 #'   to include in the query. Defaults to the origin date of CCM.
 #' @param to Character scalar. Identifies the end of the date range
-#'   to include in the query. Defaults to `Sys.time()` (i.e. today's date and time).
+#'   to include in the query. Defaults to `Sys.Date()` (i.e. today's date).
 #' @param columns Character scalar or character vector. Names the columns to
 #'   return from the Outbreak object. Defaults to `Id`.
 #' @param healthUnit Character vector or scalar. Names the Public Health Unit
@@ -43,7 +43,7 @@ getOutbreaks <- function(
   openOnly = TRUE,
   healthUnit = NULL,
   from = "1990-01-01",
-  to = as.character(Sys.time()),
+  to = as.character(Sys.Date()),
   columns = "Id"
 ) {
   # Translate each option to language Salesforce expects
