@@ -27,9 +27,10 @@
 #'   confirmedOnly = FALSE,
 #'   healthUnit = 'Durham Region Health Department'
 #' )
-#' Specify the data to return.
+#' Specify the data to return. This can be field names or labels
+#' N.B. Names are case sensitive!
 #' outbreaks <- getOutbreaks(
-#'   columns = c("Id", "Name", "CCM_SFDC_Outbreak_Number__c")
+#'   columns = c("Id", "Outbreak Name", "Outbreak Number")
 #' )
 #' Limit the data to a specific time period.
 #' outbreaks <- getOutbreaks(
