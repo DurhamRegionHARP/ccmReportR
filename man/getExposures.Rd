@@ -45,14 +45,15 @@ The Exposure object maps to Exposures on the client-side.
 }
 \examples{
 \dontrun{
-Get all community exposures for Durham
+Get all community exposures for Durham Region
 exposures <- getExposures(
   type = 'Community',
   healthUnit = 'Durham Region Health Department'
 )
-Specify the data to return.
+Specify the data to return. This can be field names or labels
+N.B. Names are case sensitive!
 exposures <- getExposures(
-  columns = c("Id", "Name", "CCM_Exposure_Setting__c")
+  columns = c("Id", "Exposure Name", "CCM_Exposure_Setting__c")
 )
 Limit the data to a specific time period.
 exposures <- getExposures(

@@ -1,5 +1,5 @@
 # v0.1.0
-- Adds `getDBLabels`. This function allows users to specify field labels in the `columns` attribute of `getExposures`, `getCases`, and `getOutbreaks`. Addresses [#2](https://github.com/DurhamRegionHARP/ccmReportR/issues/2).
+- Adds `getDBLabels`. This function allows users to specify field labels in the `columns` parameter of `getExposures`, `getCases`, and `getOutbreaks`. Addresses [#2](https://github.com/DurhamRegionHARP/ccmReportR/issues/2).
 - Corrects spelling errors in R error messages.
 - Fixes a bug where `dplyr::select()` throws an error on queries that do not return results.
 - Updates the default value of the `to` parameter in `getCases` and `getExposures` to `Sys.time()`.

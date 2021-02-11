@@ -21,4 +21,5 @@ Imports:
     keyring (>= 1.1.0),
     lubridate (>= 1.7.9),
     purrr (>= 0.3.4),
-    tibble (>= 3.0.5)
+    tibble (>= 3.0.5),
+    rlang

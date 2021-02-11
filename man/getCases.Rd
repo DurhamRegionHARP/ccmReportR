@@ -39,14 +39,15 @@ The Case object maps to Investigations on the client-side.
 }
 \examples{
 \dontrun{
-Get all confirmed cases for Waterloo Region
+Get all confirmed cases for Durham Region
 cases <- getCases(
   confirmedOnly = TRUE,
   healthUnit = 'Durham Region Health Department'
 )
-Specify the data to return.
+Specify the data to return. This can be field names or labels
+N.B. Names are case sensitive!
 cases <- getCases(
-  columns = c("Id", "CCM_ReportedDate__c", "CCM_Episode_Date__c", "CCM_Episode_Date_Type__c")
+  columns = c("Id", "Reported Date", "Episode Date", "CCM_Episode_Date_Type__c")
 )
 Limit the data to a specific time period.
 cases <- getCases(

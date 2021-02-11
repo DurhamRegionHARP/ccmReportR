@@ -11,6 +11,7 @@
 #' @returns Character vector. Field names suitable for use in
 #'   subsequent SOQL queries. Elements form `colNames` not found
 #'   in `table` are removed from the results.
+#' @importFrom rlang .data
 
 getDBLabels <- function(table, colNames) {
   resource_uri <- paste0(
@@ -33,8 +34,8 @@ getDBLabels <- function(table, colNames) {
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
 
   # Match the field name or the field label to user request
-  details <- dplyr::select(data$fields, name, label)
-  keepRows <- dplyr::filter(details, label %in% colNames | name %in% colNames)
+  details <- dplyr::select(data$fields, rlang::.data$name, rlang::.data$label)
+  keepRows <- dplyr::filter(details, rlang::.data$label %in% colNames | rlang::.data$name %in% colNames)
 
   # Warn for unmatched requests
   if(length(keepRows$name) < length(colNames)) {
