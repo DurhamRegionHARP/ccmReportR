@@ -34,8 +34,8 @@ getDBLabels <- function(table, colNames) {
   data <- jsonlite::fromJSON(httr::content(resp, 'text'))
 
   # Match the field name or the field label to user request
-  details <- dplyr::select(data$fields, rlang::.data$name, rlang::.data$label)
-  keepRows <- dplyr::filter(details, rlang::.data$label %in% colNames | rlang::.data$name %in% colNames)
+  details <- dplyr::select(data$fields, .data$name, .data$label)
+  keepRows <- dplyr::filter(details, .data$label %in% colNames | .data$name %in% colNames)
 
   # Warn for unmatched requests
   if(length(keepRows$name) < length(colNames)) {
