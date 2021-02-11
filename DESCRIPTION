@@ -1,6 +1,6 @@
 Package: ccmReportR
 Title: Wraps 'CCM' with Utility Functions
-Version: 0.0.3-900
+Version: 0.1.0
 Authors@R:
     person(given = "James",
            family = "Lane",
