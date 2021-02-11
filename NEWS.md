@@ -1,5 +1,9 @@
-# v0.0.4
+# v0.1.0
 - Corrects spelling errors in R error messages.
+- Adds `getDBLabels`. This function allows users to specify field labels in the `columns` attribute of `getExposures`, `getCases`, and `getOutbreaks`. Addresses #2.
+- Fixes a bug where `dplyr::select()` throws an error on queries that do not return results.
+- Updates the default value of the `to` parameter in `getCases` and `getExposures` to `Sys.time()`.
+- Updates the data returned with `getCases` to a `tibble`.
 
 # v0.0.3 2021-01-26
 - Adds `getExposures` and `getOutbreaks`. These functions retrieve data from Exposure and Outbreak objects, respectively.
