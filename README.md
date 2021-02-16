@@ -36,24 +36,26 @@ Open a browser and login at: https://mohcontacttracing.my.salesforce.com/setup/c
 After completing the login process in a web browser, you should see `Login successful!` when you return to your R terminal.
 
 ### Get Data
-Use `getCases`, `getExposures`, and `getOutbreaks` to get a `tibble` of data from CCM. Typically, this is the starting point for most applications. Function parameters allow you to control how data are filtered and what fields are returned. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases.
+Use `getCases`, `getExposures`, and `getOutbreaks` to get a `tibble` of data from CCM. Typically, this is the starting point for most applications. Function parameters allow you to control how data are filtered and what fields are returned. Below, we fetch a list of cases from CCM. We specify the health unit, the data to return, the date range to include, and limit the results to confirmed cases. Notice the `columns` parameter contains a combination of CCM field names and labels.
 
 ```r
 # *N.B.* Health unit names in CCM follow a specific spelling.
+# Id's have been truncated for safety.
 myCases <- getCases(
-    healthUnit = 'Simcoe Muskoka District Health Unit',
-    columns = c('Id', 'CCM_ReportedDate__c'),
+    healthUnit = 'Durham Region Health Department',
+    columns = c('Id', 'Reported Date', 'Classification'),
     from = "2020-10-12",
     to = "2020-10-15 23:59:59",
     confirmedOnly = TRUE
 )
 str(myCases)
-# data.frame':   32 obs. of  2 variables:
-# $ Id                 : chr  "5005X0000028zhGQAQ" "5005X0000029173QAA" "5005X00000292dEQAQ" "5005X00000293QJQAY" ...
-# $ CCM_ReportedDate__c: chr  "2020-10-12T12:54:36.000+0000" "2020-10-12T15:43:31.000+0000" "2020-10-12T16:00:00.000+0000" # "2020-10-12T19:18:11.000+0000" ...
-```
+# tibble [127 x 3] (S3: tbl_df/tbl/data.frame)
+#  $ Id                   : chr [1:127] "5005X0000028f" "5005X0000028q" "5005X0000028v" "5005X0000028x" ...
+#  $ CCM_Classification__c: chr [1:127] "CONFIRMED" "CONFIRMED" "CONFIRMED" "CONFIRMED" ...
+#  $ CCM_ReportedDate__c  : chr [1:127] "2020-10-13T00:28:19.000+0000" "2020-10-13T08:23:53.000+0000" "2020-10-12T12:00:00.000+0000" 2020-10-12T12:00:00.000+0000" ...
+ ```
 ### Attributes
-Use `getCaseAttribute`, `getExposureAttribute`, `getOutbreakAttribute` to get a `tibble` of related information. Currently supported attributes for cases include:
+Use `getCaseAttribute`, `getExposureAttribute`, or `getOutbreakAttribute` to get a `tibble` of related information. Currently supported attributes for cases include:
 - Exposures
 - Interventions
 - Lab Results
@@ -61,27 +63,28 @@ Use `getCaseAttribute`, `getExposureAttribute`, `getOutbreakAttribute` to get a 
 - Risk Factors
 - Symptoms
 
-For exposures:
+for exposures:
 - Exposure investigations
 
-And for outbreaks:
+and for outbreaks:
 - Exposures
 - Investigations
 - Locations
 
-Continuing with our previous example, let's get the interventions related to our list of cases
+Continuing with our previous example, let's get the interventions related to our list of cases. 
 ```r
+# Id's have been redacted for safety.
 interventions <- getCaseAttribute('interventions', myCases$Id)
 str(interventions)
-# tibble [46 x 8] (S3: tbl_df/tbl/data.frame)
-#  $ Id                         : chr [1:46] "a1u5X0000005Q3hQAE" "a1u5X0000005T7xQAE" "a1u5X0000005T87QAE" "a1u5X0000005T8CQAU" ...
-#  $ Case__c                    : chr [1:46] "5005X0000028zhGQAQ" "5005X0000029173QAA" "5005X0000029173QAA" "5005X0000029173QAA" ...
-#  $ RecordType.Name            : chr [1:46] "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" ...
-#  $ Intervention__c            : chr [1:46] "Education" "Education" "Self Monitoring by Client" "Self-Isolation at Private Residence" ...
-#  $ Intervention_Information__c: chr [1:46] "YES" "YES" "YES" "YES" ...
-#  $ Hospital_Name__r.Name      : chr [1:46] NA NA NA NA ...
-#  $ Start_Date__c              : chr [1:46] "2020-10-12" "2020-10-14" "2020-10-14" "2020-10-14" ...
-#  $ End_Date__c                : chr [1:46] NA NA NA NA ...
+# tibble [314 x 8] (S3: tbl_df/tbl/data.frame)
+#  $ Id                         : chr [1:314] "a1u5X0000005" "a1u5X0000005" "a1u5X0000005" "a1u5X0000005" ...
+#  $ Case__c                    : chr [1:314] "5005X0000028f" "5005X0000028f" "5005X0000028f" "5005X0000028q" ...
+#  $ RecordType.Name            : chr [1:314] "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" "Non-Hospital Intervention" ...
+#  $ Intervention__c            : chr [1:314] "Self-Isolation at Private Residence" "Active Monitoring by PHU" "Education" "Active Monitoring by PHU" ...
+#  $ Intervention_Information__c: chr [1:314] "YES" "YES" "YES" "YES" ...
+#  $ Hospital_Name__r.Name      : chr [1:314] NA NA NA NA ...
+#  $ Start_Date__c              : chr [1:314] "2020-10-10" "2020-10-12" "2020-10-12" "2020-10-16" ...
+#  $ End_Date__c                : chr [1:314] "2020-10-18" "2020-10-18" "2020-10-18" NA ...
 ```
 
 ## Road Map
